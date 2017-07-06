@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{E8C4C7FE-827A-997C-CA97-9C3D4A51A9D8}|">
+  <MonoDevelop.Ide.ItemProperties.ulua PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/LuaBand/LuaUnit.cs">
+    <Files>
+      <File FileName="Assets/Scripts/StartLuaUpdate.cs" Line="16" Column="3" />
+      <File FileName="Assets/Scripts/LuaBand/LuaUnit.cs" Line="17" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
