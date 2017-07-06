@@ -1,17 +1,10 @@
 test_model = newclass(Lua_base_model)
 
 function test_model:ModelInit()
-
+    print("ModelInit---->数据初始化")
 end
 
-local function test_model_init()
-    print("test_model_init---->数据初始化")
-end
-test_model_init()
-function test()
+function test_model:test_model_init()
     print("test-----------")
+end
 
-end
-local function test_test()
-    print("test_test-------------")
-end

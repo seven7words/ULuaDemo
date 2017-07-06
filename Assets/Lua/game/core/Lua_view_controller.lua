@@ -1,8 +1,9 @@
 --控制器基类
 Lua_view_controller = newclass(base_behaviour)
 
-function Lua_view_controller:GameInitData()
+function Lua_view_controller:GameInitData(modelLuaObj)
     self.LuaObjs = {}
+    self.modelLuaObj = modelLuaObj
 end
 
 function Lua_view_controller:GameControllerInit(className,gameObject,insID,cacheObjs,cachePrefabs)
@@ -17,13 +18,13 @@ function Lua_view_controller:UnityToLuaClick(insID,clickName)
         print(luaObj)
         if clickName == UNITY_TO_LUA_CLICK.OnEnable then
             self:onEnable(luaObj)
-        elseif clickName == UNITY_TO_LUS_CLICK.OnDisable then
+        elseif clickName == UNITY_TO_LUA_CLICK.OnDisable then
             self:onDisable(luaObj)
-        elseif clickName == UNITY_TO_LUS_CLICK.Awake then
+        elseif clickName == UNITY_TO_LUA_CLICK.Awake then
             self:awake(luaObj)
-        elseif clickName == UNITY_TO_LUS_CLICK.Start then
+        elseif clickName == UNITY_TO_LUA_CLICK.Start then
             self:start(luaObj)
-        elseif clickName == UNITY_TO_LUS_CLICK.OnDestroy then
+        elseif clickName == UNITY_TO_LUA_CLICK.OnDestroy then
             self:onDestroy(luaObj)
         end
     else

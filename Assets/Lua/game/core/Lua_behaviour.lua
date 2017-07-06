@@ -3,19 +3,25 @@
 
 
 local LuaObj = {} --非控制器脚本对象表
-local luaController = {} --
+local luaController = {} --控制器类
+local luaModels = {} --数据类对象
 --界面view类对应控制器的注册
 local VIEW_CONTROL_ENROLL = {
     test_view = "test_controller",
 }
+--数据类
+local MODEL_CONTROL_ENROLL = {
+    test_controller = "test_model",
+}
 --Unity初始化以及回调方法注册
-UNITY_TO_LUS_CLICK = {
+UNITY_TO_LUA_CLICK = {
     Awake = "awake",
     onEnable = "onEnable",
     Start = "start",
     OnDisable = "onDisable",
     OnDestroy = "onDestroy",
 }
+
 function awake(gameObject, className, insID, objs, len, prefabs,prefabLen)
     ----------界面对象以及预设添加-----------
     local cacheObjs = {}
@@ -47,13 +53,18 @@ function awake(gameObject, className, insID, objs, len, prefabs,prefabLen)
     else
         local Obj = luaController[m_cont]
         if Obj == nil then
-            local class = _G[m_cont]
+            local modelName = MODEL_CONTROL_ENROLL[m_cont]
+            local class = _G[modelName]
+            local modelLuaObj = class.new()
+            modelLuaObj:ModelInit()
+            luaModels[modelName] = modelLuaObj
+            class = _G[m_cont]
             Obj = class.new()
             luaController[m_cont] = Obj
-            Obj:GameInitData()
+            Obj:GameInitData(modelLuaObj)
         end
         Obj:GameControllerInit(className,gameObject,insID,cacheObjs,cachePrefabs)
-        Obj:UnityToLuaClick(insID,UNITY_TO_LUS_CLICK.Awake)
+        Obj:UnityToLuaClick(insID,UNITY_TO_LUA_CLICK.Awake)
     end
 
    local class = _G[className]
@@ -70,7 +81,7 @@ function onEnable(insID,className)
     else
         local name = VIEW_CONTROL_ENROLL[className]
         if name ~= nil and luaController[name] ~= nil then
-            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUS_CLICK.OnEnable)
+            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUA_CLICK.OnEnable)
         else
             error(insID.."onEnable View"..className.."--> 没有查找到该脚本对象")
         end
@@ -84,7 +95,7 @@ function start(insID,className)
     else
         local name = VIEW_CONTROL_ENROLL[className]
         if name ~= nil and luaController[name] ~= nil then
-            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUS_CLICK.Start)
+            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUA_CLICK.Start)
         else
             error(insID.."Start View"..className.."--> 没有查找到该脚本对象")
         end
@@ -97,7 +108,7 @@ function onDisable(insID,className)
     else
         local name = VIEW_CONTROL_ENROLL[className]
         if name ~= nil and luaController[name] ~= nil then
-            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUS_CLICK.OnDisable)
+            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUA_CLICK.OnDisable)
         else
             error(insID.."OnDisable View"..className.."--> 没有查找到该脚本对象")
         end
@@ -111,7 +122,7 @@ function onDestroy(insID,className)
     else
         local name = VIEW_CONTROL_ENROLL[className]
         if name ~= nil and luaController[name] ~= nil then
-            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUS_CLICK.OnDestroy)
+            luaController[name]:UnityToLuaClick(insID,UNITY_TO_LUA_CLICK.OnDestroy)
         else
             error(insID.."OnDestroy View"..className.."--> 没有查找到该脚本对象")
         end

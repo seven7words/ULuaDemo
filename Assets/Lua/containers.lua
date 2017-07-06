@@ -15,6 +15,7 @@ local LOAD_LUA_SCRITE = {
 function ContainersInit()
    LoadLuas(LOAD_LUA_SCRITE)
 end
+
 --外部Lua脚本加载--
 function LoadLuas(LuasList)
     if LuasList ~= nil then
