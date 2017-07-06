@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{26031990-20DE-4E66-E3AC-9C6648A46AB7}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Editor/Export.cs">
+    <Files>
+      <File FileName="Assets/Editor/Export.cs" Line="37" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.ULuaUnityDemo PreferredExecutionTarget="Unity.Editor" />
+  <MultiItemStartupConfigurations />
+</Properties>
