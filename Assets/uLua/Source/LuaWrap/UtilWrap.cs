@@ -1,5 +1,7 @@
 ﻿using System;
+using UnityEngine;
 using LuaInterface;
+using Object = UnityEngine.Object;
 
 public class UtilWrap
 {
@@ -13,6 +15,14 @@ public class UtilWrap
 			new LuaMethod("LogError", LogError),
 			new LuaMethod("ClearMemory", ClearMemory),
 			new LuaMethod("CheckEnvironment", CheckEnvironment),
+			new LuaMethod("setButtonClick", setButtonClick),
+			new LuaMethod("addButtonClick", addButtonClick),
+			new LuaMethod("AddPress", AddPress),
+			new LuaMethod("AddDrag", AddDrag),
+			new LuaMethod("AddDragEnd", AddDragEnd),
+			new LuaMethod("GetObjectChild", GetObjectChild),
+			new LuaMethod("GetNameTransforms", GetNameTransforms),
+			new LuaMethod("LoadMainAssetAtPath", LoadMainAssetAtPath),
 			new LuaMethod("New", _CreateUtil),
 			new LuaMethod("GetClassType", GetClassType),
 		};
@@ -102,6 +112,90 @@ public class UtilWrap
 	{
 		LuaScriptMgr.CheckArgsCount(L, 0);
 		bool o = Util.CheckEnvironment();
+		LuaScriptMgr.Push(L, o);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int setButtonClick(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 2);
+		GameObject arg0 = (GameObject)LuaScriptMgr.GetUnityObject(L, 1, typeof(GameObject));
+		LuaFunction arg1 = LuaScriptMgr.GetLuaFunction(L, 2);
+		Util.setButtonClick(arg0,arg1);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int addButtonClick(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 2);
+		GameObject arg0 = (GameObject)LuaScriptMgr.GetUnityObject(L, 1, typeof(GameObject));
+		LuaFunction arg1 = LuaScriptMgr.GetLuaFunction(L, 2);
+		Util.addButtonClick(arg0,arg1);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddPress(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 3);
+		Util obj = (Util)LuaScriptMgr.GetNetObjectSelf(L, 1, "Util");
+		GameObject arg0 = (GameObject)LuaScriptMgr.GetUnityObject(L, 2, typeof(GameObject));
+		LuaFunction arg1 = LuaScriptMgr.GetLuaFunction(L, 3);
+		obj.AddPress(arg0,arg1);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddDrag(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 3);
+		Util obj = (Util)LuaScriptMgr.GetNetObjectSelf(L, 1, "Util");
+		GameObject arg0 = (GameObject)LuaScriptMgr.GetUnityObject(L, 2, typeof(GameObject));
+		LuaFunction arg1 = LuaScriptMgr.GetLuaFunction(L, 3);
+		obj.AddDrag(arg0,arg1);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddDragEnd(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 3);
+		Util obj = (Util)LuaScriptMgr.GetNetObjectSelf(L, 1, "Util");
+		GameObject arg0 = (GameObject)LuaScriptMgr.GetUnityObject(L, 2, typeof(GameObject));
+		LuaFunction arg1 = LuaScriptMgr.GetLuaFunction(L, 3);
+		obj.AddDragEnd(arg0,arg1);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetObjectChild(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 1);
+		GameObject arg0 = (GameObject)LuaScriptMgr.GetUnityObject(L, 1, typeof(GameObject));
+		GameObject[] o = Util.GetObjectChild(arg0);
+		LuaScriptMgr.PushArray(L, o);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetNameTransforms(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 2);
+		GameObject arg0 = (GameObject)LuaScriptMgr.GetUnityObject(L, 1, typeof(GameObject));
+		string[] objs1 = LuaScriptMgr.GetArrayString(L, 2);
+		Transform[] o = Util.GetNameTransforms(arg0,objs1);
+		LuaScriptMgr.PushArray(L, o);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int LoadMainAssetAtPath(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 1);
+		string arg0 = LuaScriptMgr.GetLuaString(L, 1);
+		Object o = Util.LoadMainAssetAtPath(arg0);
 		LuaScriptMgr.Push(L, o);
 		return 1;
 	}

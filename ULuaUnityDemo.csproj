@@ -348,6 +348,7 @@
     <Compile Include="Assets\uLua\Source\LuaWrap\TypeWrap.cs" />
     <Compile Include="Assets\uLua\Source\LuaWrap\UIAtlasWrap.cs" />
     <Compile Include="Assets\uLua\Source\LuaWrap\UIBasicSpriteWrap.cs" />
+    <Compile Include="Assets\uLua\Source\LuaWrap\UIButtonWrap.cs" />
     <Compile Include="Assets\uLua\Source\LuaWrap\UICameraWrap.cs" />
     <Compile Include="Assets\uLua\Source\LuaWrap\UICenterOnChildWrap.cs" />
     <Compile Include="Assets\uLua\Source\LuaWrap\UIGridWrap.cs" />
@@ -399,6 +400,14 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
+    <None Include="Assets\Resources\Public\Atlases\Icon\General_icon.txt" />
+    <None Include="Assets\Resources\Public\Atlases\Icon\equip_icon.txt" />
+    <None Include="Assets\Resources\Public\Atlases\Icon\prop_icon.txt" />
+    <None Include="Assets\Resources\Public\Atlases\mmap.txt" />
+    <None Include="Assets\Resources\Public\Atlases\ui_atlas_HD.txt" />
+    <None Include="Assets\Resources\Public\Atlases\ui_atlas_battle.txt" />
+    <None Include="Assets\Resources\Public\Atlases\ui_atlas_icon_common.txt" />
+    <None Include="Assets\Resources\Public\Atlases\ui_atlas_img_local_normal.txt" />
     <None Include="Assets\StreamingAssets\build_info.txt" />
     <None Include="Assets\uLua\README.txt" />
   </ItemGroup>

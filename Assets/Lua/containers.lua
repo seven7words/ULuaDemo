@@ -9,6 +9,7 @@ local LOAD_LUA_SCRITE = {
     "game/core/View",
     -------------UI控制器类加载------------
     "game/modular/controller/test_controller",
+    "game/modular/controller/main_controller",
     ---------资源管理类加载---------------
 }
 

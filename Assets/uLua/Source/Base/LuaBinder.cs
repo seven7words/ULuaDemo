@@ -69,6 +69,7 @@ public static class LuaBinder
 		TypeWrap.Register(L);
 		UIAtlasWrap.Register(L);
 		UIBasicSpriteWrap.Register(L);
+		UIButtonWrap.Register(L);
 		UICameraWrap.Register(L);
 		UICenterOnChildWrap.Register(L);
 		UIGridWrap.Register(L);

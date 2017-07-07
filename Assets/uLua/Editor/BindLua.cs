@@ -261,7 +261,8 @@ public static class LuaBinding
         _GT(typeof(TweenPosition)),
         _GT(typeof(TweenScale)),
         _GT(typeof(UICenterOnChild)),    
-        _GT(typeof(UIAtlas)),//*/ 
+        _GT(typeof(UIAtlas)),
+        _GT(typeof(UIButton)),//*/ 
    
         //_GT(typeof(LeanTween)),
         //_GT(typeof(LTDescr)),
