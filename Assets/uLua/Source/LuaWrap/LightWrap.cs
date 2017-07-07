@@ -24,12 +24,16 @@ public class LightWrap
 		{
 			new LuaField("type", get_type, set_type),
 			new LuaField("color", get_color, set_color),
+			new LuaField("colorTemperature", get_colorTemperature, set_colorTemperature),
 			new LuaField("intensity", get_intensity, set_intensity),
 			new LuaField("bounceIntensity", get_bounceIntensity, set_bounceIntensity),
 			new LuaField("shadows", get_shadows, set_shadows),
 			new LuaField("shadowStrength", get_shadowStrength, set_shadowStrength),
+			new LuaField("shadowResolution", get_shadowResolution, set_shadowResolution),
+			new LuaField("shadowCustomResolution", get_shadowCustomResolution, set_shadowCustomResolution),
 			new LuaField("shadowBias", get_shadowBias, set_shadowBias),
 			new LuaField("shadowNormalBias", get_shadowNormalBias, set_shadowNormalBias),
+			new LuaField("shadowNearPlane", get_shadowNearPlane, set_shadowNearPlane),
 			new LuaField("range", get_range, set_range),
 			new LuaField("spotAngle", get_spotAngle, set_spotAngle),
 			new LuaField("cookieSize", get_cookieSize, set_cookieSize),
@@ -37,7 +41,9 @@ public class LightWrap
 			new LuaField("flare", get_flare, set_flare),
 			new LuaField("renderMode", get_renderMode, set_renderMode),
 			new LuaField("alreadyLightmapped", get_alreadyLightmapped, set_alreadyLightmapped),
+			new LuaField("isBaked", get_isBaked, null),
 			new LuaField("cullingMask", get_cullingMask, set_cullingMask),
+			new LuaField("lightmapBakeType", get_lightmapBakeType, set_lightmapBakeType),
 			new LuaField("commandBufferCount", get_commandBufferCount, null),
 		};
 
@@ -117,6 +123,30 @@ public class LightWrap
 		}
 
 		LuaScriptMgr.Push(L, obj.color);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_colorTemperature(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name colorTemperature");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index colorTemperature on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.colorTemperature);
 		return 1;
 	}
 
@@ -217,6 +247,54 @@ public class LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_shadowResolution(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name shadowResolution");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index shadowResolution on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.shadowResolution);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_shadowCustomResolution(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name shadowCustomResolution");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index shadowCustomResolution on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.shadowCustomResolution);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_shadowBias(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -261,6 +339,30 @@ public class LightWrap
 		}
 
 		LuaScriptMgr.Push(L, obj.shadowNormalBias);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_shadowNearPlane(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name shadowNearPlane");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index shadowNearPlane on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.shadowNearPlane);
 		return 1;
 	}
 
@@ -433,6 +535,30 @@ public class LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isBaked(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name isBaked");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index isBaked on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.isBaked);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_cullingMask(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -453,6 +579,30 @@ public class LightWrap
 		}
 
 		LuaScriptMgr.Push(L, obj.cullingMask);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_lightmapBakeType(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name lightmapBakeType");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index lightmapBakeType on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.lightmapBakeType);
 		return 1;
 	}
 
@@ -525,6 +675,30 @@ public class LightWrap
 		}
 
 		obj.color = LuaScriptMgr.GetColor(L, 3);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_colorTemperature(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name colorTemperature");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index colorTemperature on a nil value");
+			}
+		}
+
+		obj.colorTemperature = (float)LuaScriptMgr.GetNumber(L, 3);
 		return 0;
 	}
 
@@ -625,6 +799,54 @@ public class LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_shadowResolution(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name shadowResolution");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index shadowResolution on a nil value");
+			}
+		}
+
+		obj.shadowResolution = (UnityEngine.Rendering.LightShadowResolution)LuaScriptMgr.GetNetObject(L, 3, typeof(UnityEngine.Rendering.LightShadowResolution));
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_shadowCustomResolution(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name shadowCustomResolution");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index shadowCustomResolution on a nil value");
+			}
+		}
+
+		obj.shadowCustomResolution = (int)LuaScriptMgr.GetNumber(L, 3);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_shadowBias(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -669,6 +891,30 @@ public class LightWrap
 		}
 
 		obj.shadowNormalBias = (float)LuaScriptMgr.GetNumber(L, 3);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_shadowNearPlane(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name shadowNearPlane");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index shadowNearPlane on a nil value");
+			}
+		}
+
+		obj.shadowNearPlane = (float)LuaScriptMgr.GetNumber(L, 3);
 		return 0;
 	}
 
@@ -865,13 +1111,56 @@ public class LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_lightmapBakeType(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Light obj = (Light)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name lightmapBakeType");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index lightmapBakeType on a nil value");
+			}
+		}
+
+		obj.lightmapBakeType = (LightmapBakeType)LuaScriptMgr.GetNetObject(L, 3, typeof(LightmapBakeType));
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int AddCommandBuffer(IntPtr L)
 	{
-		LuaScriptMgr.CheckArgsCount(L, 3);
-		Light obj = (Light)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Light");
-		UnityEngine.Rendering.LightEvent arg0 = (UnityEngine.Rendering.LightEvent)LuaScriptMgr.GetNetObject(L, 2, typeof(UnityEngine.Rendering.LightEvent));
-		UnityEngine.Rendering.CommandBuffer arg1 = (UnityEngine.Rendering.CommandBuffer)LuaScriptMgr.GetNetObject(L, 3, typeof(UnityEngine.Rendering.CommandBuffer));
-		obj.AddCommandBuffer(arg0,arg1);
+		int count = LuaDLL.lua_gettop(L);
+
+		if (count == 3)
+		{
+			Light obj = (Light)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Light");
+			UnityEngine.Rendering.LightEvent arg0 = (UnityEngine.Rendering.LightEvent)LuaScriptMgr.GetNetObject(L, 2, typeof(UnityEngine.Rendering.LightEvent));
+			UnityEngine.Rendering.CommandBuffer arg1 = (UnityEngine.Rendering.CommandBuffer)LuaScriptMgr.GetNetObject(L, 3, typeof(UnityEngine.Rendering.CommandBuffer));
+			obj.AddCommandBuffer(arg0,arg1);
+			return 0;
+		}
+		else if (count == 4)
+		{
+			Light obj = (Light)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Light");
+			UnityEngine.Rendering.LightEvent arg0 = (UnityEngine.Rendering.LightEvent)LuaScriptMgr.GetNetObject(L, 2, typeof(UnityEngine.Rendering.LightEvent));
+			UnityEngine.Rendering.CommandBuffer arg1 = (UnityEngine.Rendering.CommandBuffer)LuaScriptMgr.GetNetObject(L, 3, typeof(UnityEngine.Rendering.CommandBuffer));
+			UnityEngine.Rendering.ShadowMapPass arg2 = (UnityEngine.Rendering.ShadowMapPass)LuaScriptMgr.GetNetObject(L, 4, typeof(UnityEngine.Rendering.ShadowMapPass));
+			obj.AddCommandBuffer(arg0,arg1,arg2);
+			return 0;
+		}
+		else
+		{
+			LuaDLL.luaL_error(L, "invalid arguments to method: Light.AddCommandBuffer");
+		}
+
 		return 0;
 	}
 

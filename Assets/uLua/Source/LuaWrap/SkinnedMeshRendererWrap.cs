@@ -24,6 +24,7 @@ public class SkinnedMeshRendererWrap
 			new LuaField("quality", get_quality, set_quality),
 			new LuaField("sharedMesh", get_sharedMesh, set_sharedMesh),
 			new LuaField("updateWhenOffscreen", get_updateWhenOffscreen, set_updateWhenOffscreen),
+			new LuaField("skinnedMotionVectors", get_skinnedMotionVectors, set_skinnedMotionVectors),
 			new LuaField("localBounds", get_localBounds, set_localBounds),
 		};
 
@@ -179,6 +180,30 @@ public class SkinnedMeshRendererWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_skinnedMotionVectors(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		SkinnedMeshRenderer obj = (SkinnedMeshRenderer)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name skinnedMotionVectors");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index skinnedMotionVectors on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.skinnedMotionVectors);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_localBounds(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -319,6 +344,30 @@ public class SkinnedMeshRendererWrap
 		}
 
 		obj.updateWhenOffscreen = LuaScriptMgr.GetBoolean(L, 3);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_skinnedMotionVectors(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		SkinnedMeshRenderer obj = (SkinnedMeshRenderer)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name skinnedMotionVectors");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index skinnedMotionVectors on a nil value");
+			}
+		}
+
+		obj.skinnedMotionVectors = LuaScriptMgr.GetBoolean(L, 3);
 		return 0;
 	}
 

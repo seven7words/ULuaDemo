@@ -10,16 +10,17 @@ public class ApplicationWrap
 		{
 			new LuaMethod("Quit", Quit),
 			new LuaMethod("CancelQuit", CancelQuit),
-			new LuaMethod("LoadLevel", LoadLevel),
-			new LuaMethod("LoadLevelAsync", LoadLevelAsync),
-			new LuaMethod("LoadLevelAdditiveAsync", LoadLevelAdditiveAsync),
-			new LuaMethod("LoadLevelAdditive", LoadLevelAdditive),
+			new LuaMethod("Unload", Unload),
 			new LuaMethod("GetStreamProgressForLevel", GetStreamProgressForLevel),
 			new LuaMethod("CanStreamedLevelBeLoaded", CanStreamedLevelBeLoaded),
+			new LuaMethod("GetBuildTags", GetBuildTags),
 			new LuaMethod("CaptureScreenshot", CaptureScreenshot),
 			new LuaMethod("HasProLicense", HasProLicense),
 			new LuaMethod("ExternalCall", ExternalCall),
+			new LuaMethod("RequestAdvertisingIdentifierAsync", RequestAdvertisingIdentifierAsync),
 			new LuaMethod("OpenURL", OpenURL),
+			new LuaMethod("GetStackTraceLogType", GetStackTraceLogType),
+			new LuaMethod("SetStackTraceLogType", SetStackTraceLogType),
 			new LuaMethod("RequestUserAuthorization", RequestUserAuthorization),
 			new LuaMethod("HasUserAuthorization", HasUserAuthorization),
 			new LuaMethod("New", _CreateApplication),
@@ -28,15 +29,13 @@ public class ApplicationWrap
 
 		LuaField[] fields = new LuaField[]
 		{
-			new LuaField("loadedLevel", get_loadedLevel, null),
-			new LuaField("loadedLevelName", get_loadedLevelName, null),
-			new LuaField("isLoadingLevel", get_isLoadingLevel, null),
-			new LuaField("levelCount", get_levelCount, null),
 			new LuaField("streamedBytes", get_streamedBytes, null),
 			new LuaField("isPlaying", get_isPlaying, null),
+			new LuaField("isFocused", get_isFocused, null),
 			new LuaField("isEditor", get_isEditor, null),
 			new LuaField("isWebPlayer", get_isWebPlayer, null),
 			new LuaField("platform", get_platform, null),
+			new LuaField("buildGUID", get_buildGUID, null),
 			new LuaField("isMobilePlatform", get_isMobilePlatform, null),
 			new LuaField("isConsolePlatform", get_isConsolePlatform, null),
 			new LuaField("runInBackground", get_runInBackground, set_runInBackground),
@@ -48,14 +47,13 @@ public class ApplicationWrap
 			new LuaField("absoluteURL", get_absoluteURL, null),
 			new LuaField("unityVersion", get_unityVersion, null),
 			new LuaField("version", get_version, null),
-			new LuaField("bundleIdentifier", get_bundleIdentifier, null),
+			new LuaField("installerName", get_installerName, null),
+			new LuaField("identifier", get_identifier, null),
 			new LuaField("installMode", get_installMode, null),
 			new LuaField("sandboxType", get_sandboxType, null),
 			new LuaField("productName", get_productName, null),
 			new LuaField("companyName", get_companyName, null),
 			new LuaField("cloudProjectId", get_cloudProjectId, null),
-			new LuaField("webSecurityEnabled", get_webSecurityEnabled, null),
-			new LuaField("webSecurityHostUrl", get_webSecurityHostUrl, null),
 			new LuaField("targetFrameRate", get_targetFrameRate, set_targetFrameRate),
 			new LuaField("systemLanguage", get_systemLanguage, null),
 			new LuaField("backgroundLoadingPriority", get_backgroundLoadingPriority, set_backgroundLoadingPriority),
@@ -96,34 +94,6 @@ public class ApplicationWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_loadedLevel(IntPtr L)
-	{
-		LuaScriptMgr.Push(L, Application.loadedLevel);
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_loadedLevelName(IntPtr L)
-	{
-		LuaScriptMgr.Push(L, Application.loadedLevelName);
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_isLoadingLevel(IntPtr L)
-	{
-		LuaScriptMgr.Push(L, Application.isLoadingLevel);
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_levelCount(IntPtr L)
-	{
-		LuaScriptMgr.Push(L, Application.levelCount);
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_streamedBytes(IntPtr L)
 	{
 		LuaScriptMgr.Push(L, Application.streamedBytes);
@@ -134,6 +104,13 @@ public class ApplicationWrap
 	static int get_isPlaying(IntPtr L)
 	{
 		LuaScriptMgr.Push(L, Application.isPlaying);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isFocused(IntPtr L)
+	{
+		LuaScriptMgr.Push(L, Application.isFocused);
 		return 1;
 	}
 
@@ -155,6 +132,13 @@ public class ApplicationWrap
 	static int get_platform(IntPtr L)
 	{
 		LuaScriptMgr.Push(L, Application.platform);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_buildGUID(IntPtr L)
+	{
+		LuaScriptMgr.Push(L, Application.buildGUID);
 		return 1;
 	}
 
@@ -236,7 +220,14 @@ public class ApplicationWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_bundleIdentifier(IntPtr L)
+	static int get_installerName(IntPtr L)
+	{
+		LuaScriptMgr.Push(L, Application.installerName);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_identifier(IntPtr L)
 	{
 		LuaScriptMgr.Push(L, Application.identifier);
 		return 1;
@@ -274,20 +265,6 @@ public class ApplicationWrap
 	static int get_cloudProjectId(IntPtr L)
 	{
 		LuaScriptMgr.Push(L, Application.cloudProjectId);
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_webSecurityEnabled(IntPtr L)
-	{
-		LuaScriptMgr.Push(L, Application.webSecurityEnabled);
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_webSecurityHostUrl(IntPtr L)
-	{
-		LuaScriptMgr.Push(L, Application.webSecurityHostUrl);
 		return 1;
 	}
 
@@ -371,106 +348,10 @@ public class ApplicationWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int LoadLevel(IntPtr L)
+	static int Unload(IntPtr L)
 	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(string)))
-		{
-			string arg0 = LuaScriptMgr.GetString(L, 1);
-			Application.LoadLevel(arg0);
-			return 0;
-		}
-		else if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(int)))
-		{
-			int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
-			Application.LoadLevel(arg0);
-			return 0;
-		}
-		else
-		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: Application.LoadLevel");
-		}
-
-		return 0;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int LoadLevelAsync(IntPtr L)
-	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(string)))
-		{
-			string arg0 = LuaScriptMgr.GetString(L, 1);
-			AsyncOperation o = Application.LoadLevelAsync(arg0);
-			LuaScriptMgr.PushObject(L, o);
-			return 1;
-		}
-		else if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(int)))
-		{
-			int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
-			AsyncOperation o = Application.LoadLevelAsync(arg0);
-			LuaScriptMgr.PushObject(L, o);
-			return 1;
-		}
-		else
-		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: Application.LoadLevelAsync");
-		}
-
-		return 0;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int LoadLevelAdditiveAsync(IntPtr L)
-	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(string)))
-		{
-			string arg0 = LuaScriptMgr.GetString(L, 1);
-			AsyncOperation o = Application.LoadLevelAdditiveAsync(arg0);
-			LuaScriptMgr.PushObject(L, o);
-			return 1;
-		}
-		else if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(int)))
-		{
-			int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
-			AsyncOperation o = Application.LoadLevelAdditiveAsync(arg0);
-			LuaScriptMgr.PushObject(L, o);
-			return 1;
-		}
-		else
-		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: Application.LoadLevelAdditiveAsync");
-		}
-
-		return 0;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int LoadLevelAdditive(IntPtr L)
-	{
-		int count = LuaDLL.lua_gettop(L);
-
-		if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(string)))
-		{
-			string arg0 = LuaScriptMgr.GetString(L, 1);
-			Application.LoadLevelAdditive(arg0);
-			return 0;
-		}
-		else if (count == 1 && LuaScriptMgr.CheckTypes(L, 1, typeof(int)))
-		{
-			int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
-			Application.LoadLevelAdditive(arg0);
-			return 0;
-		}
-		else
-		{
-			LuaDLL.luaL_error(L, "invalid arguments to method: Application.LoadLevelAdditive");
-		}
-
+		LuaScriptMgr.CheckArgsCount(L, 0);
+		Application.Unload();
 		return 0;
 	}
 
@@ -529,6 +410,15 @@ public class ApplicationWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetBuildTags(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 0);
+		string[] o = Application.GetBuildTags();
+		LuaScriptMgr.PushArray(L, o);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int CaptureScreenshot(IntPtr L)
 	{
 		int count = LuaDLL.lua_gettop(L);
@@ -574,11 +464,61 @@ public class ApplicationWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int RequestAdvertisingIdentifierAsync(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 1);
+		Application.AdvertisingIdentifierCallback arg0 = null;
+		LuaTypes funcType1 = LuaDLL.lua_type(L, 1);
+
+		if (funcType1 != LuaTypes.LUA_TFUNCTION)
+		{
+			 arg0 = (Application.AdvertisingIdentifierCallback)LuaScriptMgr.GetNetObject(L, 1, typeof(Application.AdvertisingIdentifierCallback));
+		}
+		else
+		{
+			LuaFunction func = LuaScriptMgr.GetLuaFunction(L, 1);
+			arg0 = (param0, param1, param2) =>
+			{
+				int top = func.BeginPCall();
+				LuaScriptMgr.Push(L, param0);
+				LuaScriptMgr.Push(L, param1);
+				LuaScriptMgr.Push(L, param2);
+				func.PCall(top, 3);
+				func.EndPCall(top);
+			};
+		}
+
+		bool o = Application.RequestAdvertisingIdentifierAsync(arg0);
+		LuaScriptMgr.Push(L, o);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int OpenURL(IntPtr L)
 	{
 		LuaScriptMgr.CheckArgsCount(L, 1);
 		string arg0 = LuaScriptMgr.GetLuaString(L, 1);
 		Application.OpenURL(arg0);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetStackTraceLogType(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 1);
+		LogType arg0 = (LogType)LuaScriptMgr.GetNetObject(L, 1, typeof(LogType));
+		StackTraceLogType o = Application.GetStackTraceLogType(arg0);
+		LuaScriptMgr.Push(L, o);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetStackTraceLogType(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 2);
+		LogType arg0 = (LogType)LuaScriptMgr.GetNetObject(L, 1, typeof(LogType));
+		StackTraceLogType arg1 = (StackTraceLogType)LuaScriptMgr.GetNetObject(L, 2, typeof(StackTraceLogType));
+		Application.SetStackTraceLogType(arg0,arg1);
 		return 0;
 	}
 

@@ -31,7 +31,7 @@ public class LocalizationWrap
 			new LuaField("language", get_language, set_language),
 		};
 
-        LuaScriptMgr.RegisterLib(L, "Localization", typeof(Localization), regs, fields, null);
+		LuaScriptMgr.RegisterLib(L, "Localization", typeof(Localization), regs, fields, null);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

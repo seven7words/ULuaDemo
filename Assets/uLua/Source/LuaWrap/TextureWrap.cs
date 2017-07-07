@@ -11,7 +11,6 @@ public class TextureWrap
 		{
 			new LuaMethod("SetGlobalAnisotropicFilteringLimits", SetGlobalAnisotropicFilteringLimits),
 			new LuaMethod("GetNativeTexturePtr", GetNativeTexturePtr),
-			new LuaMethod("GetNativeTextureID", GetNativeTextureID),
 			new LuaMethod("New", _CreateTexture),
 			new LuaMethod("GetClassType", GetClassType),
 			new LuaMethod("__eq", Lua_Eq),
@@ -23,6 +22,7 @@ public class TextureWrap
 			new LuaField("anisotropicFiltering", get_anisotropicFiltering, set_anisotropicFiltering),
 			new LuaField("width", get_width, set_width),
 			new LuaField("height", get_height, set_height),
+			new LuaField("dimension", get_dimension, set_dimension),
 			new LuaField("filterMode", get_filterMode, set_filterMode),
 			new LuaField("anisoLevel", get_anisoLevel, set_anisoLevel),
 			new LuaField("wrapMode", get_wrapMode, set_wrapMode),
@@ -120,6 +120,30 @@ public class TextureWrap
 		}
 
 		LuaScriptMgr.Push(L, obj.height);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_dimension(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Texture obj = (Texture)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name dimension");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index dimension on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.dimension);
 		return 1;
 	}
 
@@ -306,6 +330,30 @@ public class TextureWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_dimension(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Texture obj = (Texture)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name dimension");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index dimension on a nil value");
+			}
+		}
+
+		obj.dimension = (UnityEngine.Rendering.TextureDimension)LuaScriptMgr.GetNetObject(L, 3, typeof(UnityEngine.Rendering.TextureDimension));
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_filterMode(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -417,16 +465,6 @@ public class TextureWrap
 		LuaScriptMgr.CheckArgsCount(L, 1);
 		Texture obj = (Texture)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Texture");
 		IntPtr o = obj.GetNativeTexturePtr();
-		LuaScriptMgr.Push(L, o);
-		return 1;
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int GetNativeTextureID(IntPtr L)
-	{
-		LuaScriptMgr.CheckArgsCount(L, 1);
-		Texture obj = (Texture)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Texture");
-		int o = obj.GetNativeTextureID();
 		LuaScriptMgr.Push(L, o);
 		return 1;
 	}

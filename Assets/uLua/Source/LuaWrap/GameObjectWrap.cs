@@ -40,6 +40,7 @@ public class GameObjectWrap
 			new LuaField("activeInHierarchy", get_activeInHierarchy, null),
 			new LuaField("isStatic", get_isStatic, set_isStatic),
 			new LuaField("tag", get_tag, set_tag),
+			new LuaField("scene", get_scene, null),
 			new LuaField("gameObject", get_gameObject, null),
 		};
 
@@ -234,6 +235,30 @@ public class GameObjectWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_scene(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		GameObject obj = (GameObject)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name scene");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index scene on a nil value");
+			}
+		}
+
+		LuaScriptMgr.PushValue(L, obj.scene);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_gameObject(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -371,12 +396,31 @@ public class GameObjectWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int GetComponentInChildren(IntPtr L)
 	{
-		LuaScriptMgr.CheckArgsCount(L, 2);
-		GameObject obj = (GameObject)LuaScriptMgr.GetUnityObjectSelf(L, 1, "GameObject");
-		Type arg0 = LuaScriptMgr.GetTypeObject(L, 2);
-		Component o = obj.GetComponentInChildren(arg0);
-		LuaScriptMgr.Push(L, o);
-		return 1;
+		int count = LuaDLL.lua_gettop(L);
+
+		if (count == 2)
+		{
+			GameObject obj = (GameObject)LuaScriptMgr.GetUnityObjectSelf(L, 1, "GameObject");
+			Type arg0 = LuaScriptMgr.GetTypeObject(L, 2);
+			Component o = obj.GetComponentInChildren(arg0);
+			LuaScriptMgr.Push(L, o);
+			return 1;
+		}
+		else if (count == 3)
+		{
+			GameObject obj = (GameObject)LuaScriptMgr.GetUnityObjectSelf(L, 1, "GameObject");
+			Type arg0 = LuaScriptMgr.GetTypeObject(L, 2);
+			bool arg1 = LuaScriptMgr.GetBoolean(L, 3);
+			Component o = obj.GetComponentInChildren(arg0,arg1);
+			LuaScriptMgr.Push(L, o);
+			return 1;
+		}
+		else
+		{
+			LuaDLL.luaL_error(L, "invalid arguments to method: GameObject.GetComponentInChildren");
+		}
+
+		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

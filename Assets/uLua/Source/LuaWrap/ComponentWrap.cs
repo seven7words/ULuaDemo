@@ -191,12 +191,31 @@ public class ComponentWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int GetComponentInChildren(IntPtr L)
 	{
-		LuaScriptMgr.CheckArgsCount(L, 2);
-		Component obj = (Component)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Component");
-		Type arg0 = LuaScriptMgr.GetTypeObject(L, 2);
-		Component o = obj.GetComponentInChildren(arg0);
-		LuaScriptMgr.Push(L, o);
-		return 1;
+		int count = LuaDLL.lua_gettop(L);
+
+		if (count == 2)
+		{
+			Component obj = (Component)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Component");
+			Type arg0 = LuaScriptMgr.GetTypeObject(L, 2);
+			Component o = obj.GetComponentInChildren(arg0);
+			LuaScriptMgr.Push(L, o);
+			return 1;
+		}
+		else if (count == 3)
+		{
+			Component obj = (Component)LuaScriptMgr.GetUnityObjectSelf(L, 1, "Component");
+			Type arg0 = LuaScriptMgr.GetTypeObject(L, 2);
+			bool arg1 = LuaScriptMgr.GetBoolean(L, 3);
+			Component o = obj.GetComponentInChildren(arg0,arg1);
+			LuaScriptMgr.Push(L, o);
+			return 1;
+		}
+		else
+		{
+			LuaDLL.luaL_error(L, "invalid arguments to method: Component.GetComponentInChildren");
+		}
+
+		return 0;
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

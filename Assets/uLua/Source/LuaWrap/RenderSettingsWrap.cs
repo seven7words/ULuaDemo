@@ -29,12 +29,14 @@ public class RenderSettingsWrap
 			new LuaField("ambientLight", get_ambientLight, set_ambientLight),
 			new LuaField("ambientIntensity", get_ambientIntensity, set_ambientIntensity),
 			new LuaField("ambientProbe", get_ambientProbe, set_ambientProbe),
+			new LuaField("subtractiveShadowColor", get_subtractiveShadowColor, set_subtractiveShadowColor),
 			new LuaField("reflectionIntensity", get_reflectionIntensity, set_reflectionIntensity),
 			new LuaField("reflectionBounces", get_reflectionBounces, set_reflectionBounces),
 			new LuaField("haloStrength", get_haloStrength, set_haloStrength),
 			new LuaField("flareStrength", get_flareStrength, set_flareStrength),
 			new LuaField("flareFadeSpeed", get_flareFadeSpeed, set_flareFadeSpeed),
 			new LuaField("skybox", get_skybox, set_skybox),
+			new LuaField("sun", get_sun, set_sun),
 			new LuaField("defaultReflectionMode", get_defaultReflectionMode, set_defaultReflectionMode),
 			new LuaField("defaultReflectionResolution", get_defaultReflectionResolution, set_defaultReflectionResolution),
 			new LuaField("customReflection", get_customReflection, set_customReflection),
@@ -163,6 +165,13 @@ public class RenderSettingsWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_subtractiveShadowColor(IntPtr L)
+	{
+		LuaScriptMgr.Push(L, RenderSettings.subtractiveShadowColor);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_reflectionIntensity(IntPtr L)
 	{
 		LuaScriptMgr.Push(L, RenderSettings.reflectionIntensity);
@@ -201,6 +210,13 @@ public class RenderSettingsWrap
 	static int get_skybox(IntPtr L)
 	{
 		LuaScriptMgr.Push(L, RenderSettings.skybox);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_sun(IntPtr L)
+	{
+		LuaScriptMgr.Push(L, RenderSettings.sun);
 		return 1;
 	}
 
@@ -317,6 +333,13 @@ public class RenderSettingsWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_subtractiveShadowColor(IntPtr L)
+	{
+		RenderSettings.subtractiveShadowColor = LuaScriptMgr.GetColor(L, 3);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_reflectionIntensity(IntPtr L)
 	{
 		RenderSettings.reflectionIntensity = (float)LuaScriptMgr.GetNumber(L, 3);
@@ -355,6 +378,13 @@ public class RenderSettingsWrap
 	static int set_skybox(IntPtr L)
 	{
 		RenderSettings.skybox = (Material)LuaScriptMgr.GetUnityObject(L, 3, typeof(Material));
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_sun(IntPtr L)
+	{
+		RenderSettings.sun = (Light)LuaScriptMgr.GetUnityObject(L, 3, typeof(Light));
 		return 0;
 	}
 

@@ -48,15 +48,14 @@ public static class LuaBinder
 		PlayModeWrap.Register(L);
 		QualitySettingsWrap.Register(L);
 		QueueModeWrap.Register(L);
-		RendererWrap.Register(L);
 		RenderSettingsWrap.Register(L);
 		RenderTextureWrap.Register(L);
+		RendererWrap.Register(L);
 		ScreenWrap.Register(L);
 		SkinnedMeshRendererWrap.Register(L);
 		SleepTimeoutWrap.Register(L);
 		SpaceWrap.Register(L);
 		SphereColliderWrap.Register(L);
-		stringWrap.Register(L);
 		System_ObjectWrap.Register(L);
 		TextureWrap.Register(L);
 		TimeWrap.Register(L);
@@ -86,5 +85,6 @@ public static class LuaBinder
 		UIWidgetContainerWrap.Register(L);
 		UIWidgetWrap.Register(L);
 		UtilWrap.Register(L);
+		stringWrap.Register(L);
 	}
 }

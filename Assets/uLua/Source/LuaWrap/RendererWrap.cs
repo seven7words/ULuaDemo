@@ -32,11 +32,13 @@ public class RendererWrap
 			new LuaField("sharedMaterials", get_sharedMaterials, set_sharedMaterials),
 			new LuaField("bounds", get_bounds, null),
 			new LuaField("lightmapIndex", get_lightmapIndex, set_lightmapIndex),
-			new LuaField("realtimeLightmapIndex", get_realtimeLightmapIndex, null),
+			new LuaField("realtimeLightmapIndex", get_realtimeLightmapIndex, set_realtimeLightmapIndex),
 			new LuaField("lightmapScaleOffset", get_lightmapScaleOffset, set_lightmapScaleOffset),
+			new LuaField("motionVectorGenerationMode", get_motionVectorGenerationMode, set_motionVectorGenerationMode),
 			new LuaField("realtimeLightmapScaleOffset", get_realtimeLightmapScaleOffset, set_realtimeLightmapScaleOffset),
 			new LuaField("isVisible", get_isVisible, null),
-			new LuaField("useLightProbes", get_useLightProbes, set_useLightProbes),
+			new LuaField("lightProbeUsage", get_lightProbeUsage, set_lightProbeUsage),
+			new LuaField("lightProbeProxyVolumeOverride", get_lightProbeProxyVolumeOverride, set_lightProbeProxyVolumeOverride),
 			new LuaField("probeAnchor", get_probeAnchor, set_probeAnchor),
 			new LuaField("reflectionProbeUsage", get_reflectionProbeUsage, set_reflectionProbeUsage),
 			new LuaField("sortingLayerName", get_sortingLayerName, set_sortingLayerName),
@@ -412,6 +414,30 @@ public class RendererWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_motionVectorGenerationMode(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Renderer obj = (Renderer)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name motionVectorGenerationMode");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index motionVectorGenerationMode on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.motionVectorGenerationMode);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_realtimeLightmapScaleOffset(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -460,7 +486,7 @@ public class RendererWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_useLightProbes(IntPtr L)
+	static int get_lightProbeUsage(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
 		Renderer obj = (Renderer)o;
@@ -471,15 +497,39 @@ public class RendererWrap
 
 			if (types == LuaTypes.LUA_TTABLE)
 			{
-				LuaDLL.luaL_error(L, "unknown member name useLightProbes");
+				LuaDLL.luaL_error(L, "unknown member name lightProbeUsage");
 			}
 			else
 			{
-				LuaDLL.luaL_error(L, "attempt to index useLightProbes on a nil value");
+				LuaDLL.luaL_error(L, "attempt to index lightProbeUsage on a nil value");
 			}
 		}
 
-		LuaScriptMgr.Push(L, obj.useLightProbes);
+		LuaScriptMgr.Push(L, obj.lightProbeUsage);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_lightProbeProxyVolumeOverride(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Renderer obj = (Renderer)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name lightProbeProxyVolumeOverride");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index lightProbeProxyVolumeOverride on a nil value");
+			}
+		}
+
+		LuaScriptMgr.Push(L, obj.lightProbeProxyVolumeOverride);
 		return 1;
 	}
 
@@ -796,6 +846,30 @@ public class RendererWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_realtimeLightmapIndex(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Renderer obj = (Renderer)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name realtimeLightmapIndex");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index realtimeLightmapIndex on a nil value");
+			}
+		}
+
+		obj.realtimeLightmapIndex = (int)LuaScriptMgr.GetNumber(L, 3);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_lightmapScaleOffset(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -816,6 +890,30 @@ public class RendererWrap
 		}
 
 		obj.lightmapScaleOffset = LuaScriptMgr.GetVector4(L, 3);
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_motionVectorGenerationMode(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Renderer obj = (Renderer)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name motionVectorGenerationMode");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index motionVectorGenerationMode on a nil value");
+			}
+		}
+
+		obj.motionVectorGenerationMode = (MotionVectorGenerationMode)LuaScriptMgr.GetNetObject(L, 3, typeof(MotionVectorGenerationMode));
 		return 0;
 	}
 
@@ -844,7 +942,7 @@ public class RendererWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_useLightProbes(IntPtr L)
+	static int set_lightProbeUsage(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
 		Renderer obj = (Renderer)o;
@@ -855,15 +953,39 @@ public class RendererWrap
 
 			if (types == LuaTypes.LUA_TTABLE)
 			{
-				LuaDLL.luaL_error(L, "unknown member name useLightProbes");
+				LuaDLL.luaL_error(L, "unknown member name lightProbeUsage");
 			}
 			else
 			{
-				LuaDLL.luaL_error(L, "attempt to index useLightProbes on a nil value");
+				LuaDLL.luaL_error(L, "attempt to index lightProbeUsage on a nil value");
 			}
 		}
 
-		obj.useLightProbes = LuaScriptMgr.GetBoolean(L, 3);
+		obj.lightProbeUsage = (UnityEngine.Rendering.LightProbeUsage)LuaScriptMgr.GetNetObject(L, 3, typeof(UnityEngine.Rendering.LightProbeUsage));
+		return 0;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_lightProbeProxyVolumeOverride(IntPtr L)
+	{
+		object o = LuaScriptMgr.GetLuaObject(L, 1);
+		Renderer obj = (Renderer)o;
+
+		if (obj == null)
+		{
+			LuaTypes types = LuaDLL.lua_type(L, 1);
+
+			if (types == LuaTypes.LUA_TTABLE)
+			{
+				LuaDLL.luaL_error(L, "unknown member name lightProbeProxyVolumeOverride");
+			}
+			else
+			{
+				LuaDLL.luaL_error(L, "attempt to index lightProbeProxyVolumeOverride on a nil value");
+			}
+		}
+
+		obj.lightProbeProxyVolumeOverride = (GameObject)LuaScriptMgr.GetUnityObject(L, 3, typeof(GameObject));
 		return 0;
 	}
 
