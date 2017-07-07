@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Export.cs" />
+    <Compile Include="Assets\Editor\Util\PathUtil.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvDatabaseInspector.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvFindItem.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\ActiveAnimationEditor.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Assets\NGUI\Scripts\Editor\UIWidgetContainerEditor.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\UIWidgetInspector.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\UIWrapContentEditor.cs" />
+    <Compile Include="Assets\Reporter\Editor\ReporterEditor.cs" />
     <Compile Include="Assets\uLua\Editor\BindLua.cs" />
     <Compile Include="Assets\uLua\Editor\WelcomeScreen.cs" />
     <Compile Include="Assets\uLua\Editor\Wrap\ToLua_System_Delegate.cs" />
@@ -255,7 +257,6 @@
     <Compile Include="Assets\uLua\Editor\Wrap\ToLua_System_String.cs" />
     <Compile Include="Assets\uLua\Editor\Wrap\ToLua_System_Type.cs" />
     <Compile Include="Assets\uLua\Editor\Wrap\ToLua_UnityEngine_Object.cs" />
-    <Compile Include="Assets\Editor\Util\PathUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Lua\System\readme.txt" />
@@ -290,6 +291,7 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
+    <None Include="Assets\StreamingAssets\build_info.txt" />
     <None Include="Assets\uLua\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

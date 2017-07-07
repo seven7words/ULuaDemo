@@ -10,10 +10,17 @@ local function configTestCfg(cfg)
     end
     return cfgs
 end
-
+local function configLocalization(cfg)
+    local cfgs = {}
+    for k,v in pairs(cfg) do
+        cfgs[v.key] = v.value
+    end
+    return cfgs
+end
 --表配置映射
 local config_map = {
     TEST = {url = Res.CSV_TEST,func = configTestCfg},
+    LOCALIZATION = {url = Res.CSV_LOCALIZATION,func = configLocalization},
 }
 local function config_jx(tableName)
     local map = config_map[tableName]
@@ -37,4 +44,7 @@ function config_get_cfg(tableName)
 end
 function get_cfg_test(id)
    return config_get_cfg("TEST")[id]
+end
+function get_cfg_localization()
+    return config_get_cfg("LOCALIZATION")
 end
