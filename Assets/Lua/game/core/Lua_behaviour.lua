@@ -7,12 +7,10 @@ local luaController = {} --控制器类
 local luaModels = {} --数据类对象
 --界面view类对应控制器的注册
 local VIEW_CONTROL_ENROLL = {
-    test_view = "test_controller",
     main_view = "main_controller",
 }
 --数据类
 local MODEL_CONTROL_ENROLL = {
-    test_controller = "test_model",
     main_controller = "main_model"
 }
 --Unity初始化以及回调方法注册
@@ -37,7 +35,7 @@ function awake(gameObject, className, insID, objs, len, prefabs,prefabLen)
 
     local cachePrefabs = {}
     for i=0,prefabLen-1 do
-       local obj = objs[i]
+       local obj = prefabs[i]
        if obj == nil then
             error(gameObject.name .. "对象脚本为空"..i)
        end
@@ -55,25 +53,29 @@ function awake(gameObject, className, insID, objs, len, prefabs,prefabLen)
     else
         local Obj = luaController[m_cont]
         if Obj == nil then
-            local modelName = MODEL_CONTROL_ENROLL[m_cont]
-            local class = _G[modelName]
-            local modelLuaObj = class.new()
-            modelLuaObj:ModelInit()
-            luaModels[modelName] = modelLuaObj
-            class = _G[m_cont]
-            Obj = class.new()
-            luaController[m_cont] = Obj
-            Obj:GameInitData(modelLuaObj)
-        end
-        Obj:GameControllerInit(className,gameObject,insID,cacheObjs,cachePrefabs)
-        Obj:UnityToLuaClick(insID,UNITY_TO_LUA_CLICK.Awake)
-    end
+        local modelName = MODEL_CONTROL_ENROLL[m_cont]
+        local  modelObj = luaModels[modelName]
+        if modelObj == nil then
+             local class =  _G[modelName]
+             modelObj = class.new()
+             modelObj:ModelInit()
+             luaModels[modelName] = modelObj
+         end
 
+         class = _G[m_cont]
+         Obj = class.new()
+         luaController[m_cont] = Obj
+         Obj:GameInitData(modelObj)
+      end
+      Obj:GameControllerInit(className, gameObject, insID, cacheObjs, cachePrefabs)
+      Obj:UnityToLuaClick(insID, UNITY_TO_LUA_CLICK.Awake)
+    end
    local class = _G[className]
    local luaObj = class.new()
    luaObj:init(gameObject,insID,cacheObjs,cachePrefabs)
+   luaObj:initModel(luaModels[MODEL_CONTROL_ENROLL[m_cont]])
    LuaObj[insID] = luaObj
-   luaObj:awake()
+   luaObj:start()
 end
 function onEnable(insID,className)
 

@@ -1,5 +1,5 @@
 --界面基类
-base_behaviour = newclass();
+base_behaviour = newclass()
 
 function base_behaviour:init(gameObject, insID, cacheObjs, cachePrefabs)
     self.gameObject = gameObject
@@ -9,7 +9,9 @@ function base_behaviour:init(gameObject, insID, cacheObjs, cachePrefabs)
     self.cacheObjs = cacheObjs
     self.cachePrefabs = cachePrefabs
 end
-
+function base_behaviour:initModel(modelLuaObj)
+    self.modelLuaObj = modelLuaObj
+end
 function base_behaviour:awake()
 end
 

@@ -10,6 +10,7 @@ function Lua_view_controller:GameControllerInit(className,gameObject,insID,cache
     local class = _G[className]
     local Obj = class.new()
     Obj:init(gameObject,insID,cacheObjs,cachePrefabs)
+    Obj:initModel(self.modelLuaObj)
     self.LuaObjs[insID] = Obj
 end
 function Lua_view_controller:UnityToLuaClick(insID,clickName)

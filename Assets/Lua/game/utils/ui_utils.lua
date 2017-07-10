@@ -12,7 +12,7 @@ local m_UIAtlas        = UIAtlas.GetClassType()
 local m_UIWidget       = UIWidget.GetClassType()
 --local m_UITable          = UITable.GetClassType()
 
-
+local newGo = GameObject.Instantiate
 local m_NGUITools      = NGUITools
 local m_Util           = Util
 -------------获取ui组件

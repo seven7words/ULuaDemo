@@ -5,16 +5,7 @@ local model_name_cfg = {}
 local game_cfg = {}
 
 local game_child_cfg = {}
---[[
- [1]={
- ["type"]=1,
- ["funId"]=1001,
- ["local"]=1,
- ["id"]=1,
- ["name"]="task_view",
- ["icon"]="h_12",
-},
-]]--
+
 function main_model:ModelInit()
     local l_cfg = {}
     local cfg = get_game_cfg()
@@ -31,13 +22,15 @@ function main_model:ModelInit()
                 game_cfg[k].childs = {}
             end
             game_cfg[k].childs[k] = v
-            print(k.."fff"..v.funId)
-            --game_child_cfg[k] = v
         end
     end
 
 end
 
 function main_model:test_model_init()
-    print("test-----------")
+
+end
+function main_model:getGameCfg()
+
+    return game_cfg
 end

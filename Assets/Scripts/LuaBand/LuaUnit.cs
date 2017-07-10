@@ -18,7 +18,6 @@ public class LuaUnit : MonoBehaviour {
         }
         int len = objs == null ? 0 : objs.Length;
         int prefabLen = prefabs == null ? 0 : prefabs.Length;
-        Debug.Log("gameObject.name");
         CallMethod("awake", gameObject, luaClassName, insID, objs, len, prefabs,prefabLen);
     }
 	// Use this for initialization
