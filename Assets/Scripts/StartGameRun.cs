@@ -13,7 +13,7 @@ public class StartGameRun : MonoBehaviour
         if (luaUpdate != null)
         {
             mgr.DoStringFile(luaUpdate.name, luaUpdate.text);
-            mgr.CallLuaFunction("Test",gameObject);
+            mgr.CallLuaFunction("Test",obj);
             mgr.Start();
         }
 	}

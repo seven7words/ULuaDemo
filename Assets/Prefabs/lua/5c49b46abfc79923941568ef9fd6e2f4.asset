@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e816879ed2e06f4dbca9ae07a347bb4, type: 3}
+  m_Name: 5c49b46abfc79923941568ef9fd6e2f4
+  m_EditorClassIdentifier: 
+  fileName: Lua/game/login
+  data: 6c6f67696e203d206e6577636c61737328626173655f6265686176696f7572290a6c6f63616c2063616368654f626a73203d207b7d0a0a0a66756e6374696f6e206c6f67696e3a737461727428290a0963616368654f626a73203d2073656c662e63616368654f626a730a090a656e64

@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e816879ed2e06f4dbca9ae07a347bb4, type: 3}
+  m_Name: f8811c4e44f34cd17057d990fdbe510b
+  m_EditorClassIdentifier: 
+  fileName: Lua/game/network/pb/NetItem
+  data: 0a7b0a0d4e65744974656d2e70726f746f1210636f6d2e67616d652e6774772e6d736722440a06505f4974656d120e0a06757365724964180120022803120e0a066974656d4964180220022805120b0a036e756d180320022805120d0a05706172616d18042001280942120a10636f6d2e67616d652e6774772e6d7367

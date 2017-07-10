@@ -1,0 +1,1 @@
+textures@pic_login|prefabs@atlas@main_atlas|prefabs@modules@root|textures@backdrop@bg|prefabs@modules@main_view|textures@pic_bg|prefabs@atlas@general_icon_atlas|prefabs@atlas@prop_icon|prefabs@atlas@ui_battle_atlas|prefabs@atlas@comm_atlas|prefabs@atlas@tttt|prefabs@atlas@equip_icon|_lang@font@fzcyjw|prefabs@atlas@publicui

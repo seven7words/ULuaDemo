@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e816879ed2e06f4dbca9ae07a347bb4, type: 3}
+  m_Name: 076b5130dbdc567cab5baad87cb99403
+  m_EditorClassIdentifier: 
+  fileName: Lua/game/network/pb/NetWashsStone
+  data: 0a92010a134e6574576173687353746f6e652e70726f746f1210636f6d2e67616d652e6774772e6d736722550a0c505f576173687353746f6e65120a0a026964180120022803120e0a06757365724964180220022803120b0a03696964180320022803120e0a066974656d4964180420022805120c0a046174747318052002280942120a10636f6d2e67616d652e6774772e6d7367

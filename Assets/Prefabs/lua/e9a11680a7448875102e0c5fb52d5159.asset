@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e816879ed2e06f4dbca9ae07a347bb4, type: 3}
+  m_Name: e9a11680a7448875102e0c5fb52d5159
+  m_EditorClassIdentifier: 
+  fileName: Lua/game/common/global
+  data: 2d2de585a8e5b180e5b8b8e9878f0a0a476c6f62616c203d207b0a09757365724964203d2027313131272c0a09686f7374203d20273132372e302e302e31272c0a09706f7274203d20383030382c0a097365727665724964203d20312c0a09706c6174666f726d203d2027416e64726f6964272c0a096973456469746f72203d20747275652c0a096c616e67203d20227a682d434e222c0a09706c6174666f726d203d20225151222c0a7d

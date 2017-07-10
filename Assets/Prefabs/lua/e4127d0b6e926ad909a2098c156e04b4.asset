@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e816879ed2e06f4dbca9ae07a347bb4, type: 3}
+  m_Name: e4127d0b6e926ad909a2098c156e04b4
+  m_EditorClassIdentifier: 
+  fileName: Lua/game/network/pb/NetFightInit
+  data: 0a570a124e65744669676874496e69742e70726f746f1210636f6d2e67616d652e6774772e6d7367221b0a0b505f4669676874496e6974120c0a047365656418012002280542120a10636f6d2e67616d652e6774772e6d7367

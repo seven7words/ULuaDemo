@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e816879ed2e06f4dbca9ae07a347bb4, type: 3}
+  m_Name: d4e74011980da5293eb61e797d4af0cc
+  m_EditorClassIdentifier: 
+  fileName: Lua/game/configs/module_atlas_csv
+  data: 4353565f5441424c4553203d204353565f5441424c4553206f72207b7d200a4353565f5441424c45535b226d6f64756c655f61746c6173225d3d7b0a205b22526f6f74225d3d7b0a205b227465787475726573225d3d227069635f6267222c0a205b224d6f64756c654e616d65225d3d22526f6f74222c0a7d2c0a205b226d61696e5f76696577225d3d7b0a205b224d6f64756c654e616d65225d3d226d61696e5f76696577222c0a205b2261746c6173225d3d226d61696e5f41746c6173222c0a7d2c0a7d
