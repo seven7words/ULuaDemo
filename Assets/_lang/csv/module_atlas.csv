@@ -1,0 +1,6 @@
+ModuleName,atlas,textures
+string,string,string
+模块名,引用图集,引用图片
+login_view,,pic_login
+main_view,main_Atlas,
+Root,,pic_bg

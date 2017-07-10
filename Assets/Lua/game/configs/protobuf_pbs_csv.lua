@@ -1,0 +1,87 @@
+CSV_TABLES = CSV_TABLES or {} 
+CSV_TABLES["protobuf_pbs"]={
+ [1]={
+ ["id"]=1,
+ ["pbName"]="NetBilltree",
+},
+ [2]={
+ ["id"]=2,
+ ["pbName"]="NetEquip",
+},
+ [3]={
+ ["id"]=3,
+ ["pbName"]="NetExpool",
+},
+ [4]={
+ ["id"]=4,
+ ["pbName"]="NetFightInit",
+},
+ [5]={
+ ["id"]=5,
+ ["pbName"]="NetFormation",
+},
+ [6]={
+ ["id"]=6,
+ ["pbName"]="NetHero",
+},
+ [7]={
+ ["id"]=7,
+ ["pbName"]="NetItem",
+},
+ [8]={
+ ["id"]=8,
+ ["pbName"]="NetItemChange",
+},
+ [9]={
+ ["id"]=9,
+ ["pbName"]="NetLeaveMessage",
+},
+ [10]={
+ ["id"]=10,
+ ["pbName"]="NetMail",
+},
+ [11]={
+ ["id"]=11,
+ ["pbName"]="NetReward",
+},
+ [12]={
+ ["id"]=12,
+ ["pbName"]="NetTask",
+},
+ [13]={
+ ["id"]=13,
+ ["pbName"]="NetTavern",
+},
+ [14]={
+ ["id"]=14,
+ ["pbName"]="NetUnion",
+},
+ [15]={
+ ["id"]=15,
+ ["pbName"]="NetUnionApply",
+},
+ [16]={
+ ["id"]=16,
+ ["pbName"]="NetUnionUser",
+},
+ [17]={
+ ["id"]=17,
+ ["pbName"]="NetUser",
+},
+ [18]={
+ ["id"]=18,
+ ["pbName"]="NetWarResult",
+},
+ [19]={
+ ["id"]=19,
+ ["pbName"]="NetWashsStone",
+},
+ [20]={
+ ["id"]=20,
+ ["pbName"]="NetMap",
+},
+ [21]={
+ ["id"]=21,
+ ["pbName"]="NetService",
+},
+}
