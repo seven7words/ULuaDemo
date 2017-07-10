@@ -6,6 +6,7 @@ end
 
 function Test(gameObject)
     m_gameObject = gameObject
+    --open_view()
     print("Hello world")
 end
 

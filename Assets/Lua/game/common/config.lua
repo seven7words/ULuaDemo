@@ -17,10 +17,18 @@ local function configLocalization(cfg)
     end
     return cfgs
 end
+local function game_cfg_data(cfg)
+    local cfgs = {}
+    for k,v in pairs(cfg) do
+        cfgs[v.name] = v
+    end
+    return cfgs
+end
 --表配置映射
 local config_map = {
     TEST = {url = Res.CSV_TEST,func = configTestCfg},
     LOCALIZATION = {url = Res.CSV_LOCALIZATION,func = configLocalization},
+    GAME_CFG = {url = Res.GAME_CFG,func = game_cfg_data},
 }
 local function config_jx(tableName)
     local map = config_map[tableName]
@@ -47,4 +55,7 @@ function get_cfg_test(id)
 end
 function get_cfg_localization()
     return config_get_cfg("LOCALIZATION")
+end
+function get_game_cfg( ... )
+   return config_get_cfg("GAME_CFG")
 end

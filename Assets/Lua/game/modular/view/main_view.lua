@@ -8,8 +8,8 @@ local function buttonsr(str)
 end
 function init()
     print("init")
-    ui_add_click(cacheObjs.BtnMail,buttonTest)
-    ui_add_click(cacheObjs.BtnMail,buttonsr,"宝宝撒拉嘿")
+    --ui_add_click(cacheObjs.BtnMail,buttonTest)
+    --ui_add_click(cacheObjs.BtnMail,buttonsr,"宝宝撒拉嘿")
 end
 function main_view:awake()
     cacheObjs = self.cacheObjs

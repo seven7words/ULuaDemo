@@ -1,4 +1,4 @@
-CSV_TABLES = CSV_TABLES or {} 
+CSV_TABLES = CSV_TABLES or {}
 CSV_TABLES["game_cfg"]={
  [1]={
  ["type"]=1,
@@ -64,6 +64,15 @@ CSV_TABLES["game_cfg"]={
  ["name"]="chat_view",
  ["icon"]="h_20",
 },
+--  [8]={
+--  ["type"]=1,
+--  ["funId"]=1008,
+--  ["local"]=2,
+--  ["id"]=8,
+--  ["name"]="test_view",
+--  ["icon"]="h_15",
+--  ["paterId"] = 1002,
+-- },
  [9]={
  ["type"]=2,
  ["funId"]=1009,

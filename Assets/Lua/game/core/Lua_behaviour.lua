@@ -8,10 +8,12 @@ local luaModels = {} --数据类对象
 --界面view类对应控制器的注册
 local VIEW_CONTROL_ENROLL = {
     test_view = "test_controller",
+    main_view = "main_controller",
 }
 --数据类
 local MODEL_CONTROL_ENROLL = {
     test_controller = "test_model",
+    main_controller = "main_model"
 }
 --Unity初始化以及回调方法注册
 UNITY_TO_LUA_CLICK = {

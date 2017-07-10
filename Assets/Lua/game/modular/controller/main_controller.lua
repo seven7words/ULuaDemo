@@ -4,7 +4,6 @@ require "game/modular/view/main_view"
 
 function main_controller:awake()
     print("awake----------------")
-
 end
 function main_controller:onEnable()
     -- body
