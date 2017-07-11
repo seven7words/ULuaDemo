@@ -6,6 +6,23 @@ local modelLuaObj
 local m_find_luaObject_by_insID = find_luaObject_by_insID
 local m_get_instance_id = get_instance_id
 local m_ui_get_sprite = ui_get_sprite
+local m_tween_xz
+local m_tween_sf
+local m_tween_kg = true
+local function open_view_click(vo)
+    print(vo.name.."------")
+end
+local function anim_xz()
+    if m_tween_kg == true then
+        m_tween_xz:PlayForward()
+        m_tween_sf:PlayForward()
+        m_tween_kg = false
+    else
+        m_tween_xz:PlayReverse()
+        m_tween_sf:PlayReverse()
+        m_tween_kg = true
+    end
+end
 -- function buttonTest()
 --     print("按钮相应")
 -- end
@@ -34,6 +51,7 @@ function init()
         local tran,obj = ui_add_item(prefab,parent)
         ui_get_sprite(obj).spriteName = v.icon
         obj.name = v["local"]
+        ui_set_click(obj,open_view_click,v)
         table.insert( childs, tran )
     end
     local upItemDatas = modelLuaObj.upItemDatas
@@ -50,7 +68,9 @@ function init()
         grid_reposition(v)
     end
     childs = nil
-
+    m_tween_xz = ui_get_tweener(cacheObjs.objRelease)
+    m_tween_sf = ui_get_tweener(cacheObjs.right_down)
+    ui_set_click(cacheObjs.objRelease,anim_xz)
 end
 function main_view:start()
 

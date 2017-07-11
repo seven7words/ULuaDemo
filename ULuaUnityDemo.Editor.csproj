@@ -161,6 +161,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\CreatePrefabs.cs" />
     <Compile Include="Assets\Editor\Export.cs" />
     <Compile Include="Assets\Editor\Util\PathUtil.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvDatabaseInspector.cs" />
