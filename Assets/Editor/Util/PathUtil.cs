@@ -4,6 +4,11 @@ using System.Collections.Generic;
 //路径相关工具
 public class PathUtil
 {
+    //公共图集
+    public static string[] Atlases = {
+        "comm Atlas.png",
+        "base Atlas.png"
+    };
     public static string Prefab = "prefab";
     public static string SuffixPrefab = ".prefab";
 
@@ -22,7 +27,7 @@ public class PathUtil
 
 	public static string atlasPath = Application.dataPath + "/Prefabs/Atlas/";
 
-	public static string modulesPath = Application.dataPath + "/Prefabs/Modules";
+	public static string modulesPath = Application.dataPath + "/Prefabs/Modules/";
 
 	public static string UIPath = Application.dataPath + "/Prefabs/UI";
 
@@ -77,5 +82,15 @@ public class PathUtil
         }
         return list.ToArray();
     }
-
+    //是否是公共图集
+    public static bool isCommAtlas(string path){
+        if (path.Contains(SuffixPng) || path.Contains(".mat"))
+            return false;
+        for (int i = 0; i < Atlases.Length;i++){
+            if(path.Contains(Atlases[i])){
+                return true;
+            }
+        }
+        return false;
+    }
 }
