@@ -3,6 +3,9 @@ local cacheObjs = {}
 local cachePrefabs = {}
 local parent_table = {}
 local modelLuaObj
+local m_find_luaObject_by_insID = find_luaObject_by_insID
+local m_get_instance_id = get_instance_id
+local m_ui_get_sprite = ui_get_sprite
 -- function buttonTest()
 --     print("按钮相应")
 -- end
@@ -11,7 +14,7 @@ local modelLuaObj
 -- end
 function init()
     print("init")
-    print(cacheObjs.right_down.name)
+    print(cacheObjs.up_data.name)
     parent_table[1] = cacheObjs.right_down
     parent_table[2] = cacheObjs.left_down
     parent_table[3] = cacheObjs.left_up
@@ -33,12 +36,20 @@ function init()
         obj.name = v["local"]
         table.insert( childs, tran )
     end
+    local upItemDatas = modelLuaObj.upItemDatas
+    for k,v in pairs(upItemDatas) do
+        local tran,obj = ui_add_item(cachePrefabs.up_item,parent_table[6])
+        obj.name = v.itemId
+        m_find_luaObject_by_insID(m_get_instance_id(obj)):initItem(v)
+        table.insert(childs,tran)
+    end
     for k,v in pairs(childs) do
         v:SetSiblingIndex(v.name-1)
     end
     for k,v in pairs(parent_table) do
         grid_reposition(v)
     end
+    childs = nil
 
 end
 function main_view:start()

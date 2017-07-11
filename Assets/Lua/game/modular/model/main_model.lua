@@ -4,7 +4,11 @@ local model_name_cfg = {}
 --funId对应模块数据表
 local game_cfg = {}
 
-local game_child_cfg = {}
+local UP_ITEM_DATAS = {
+    power = {itemId = 1,iconName = "label_3"},
+    gold = {itemId = 2,iconName = "label_8"},
+    money = {itemId = 3,iconName = "label_16"},
+}
 
 function main_model:ModelInit()
     local l_cfg = {}
@@ -24,7 +28,7 @@ function main_model:ModelInit()
             game_cfg[k].childs[k] = v
         end
     end
-
+    self.upItemDatas = UP_ITEM_DATAS
 end
 
 function main_model:test_model_init()
