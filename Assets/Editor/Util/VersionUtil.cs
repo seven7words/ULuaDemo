@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using System.Text;
 using Process = System.Diagnostics.Process;
@@ -87,6 +89,6 @@ public class VersionUtil
         File.WriteAllText(PathUtil.verPath, sb.ToString(0,sb.Length - 1), Encoding.UTF8);
         AssetDatabase.Refresh();
     }
-	
+
 }
 

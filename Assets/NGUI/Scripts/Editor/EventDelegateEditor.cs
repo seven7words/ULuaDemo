@@ -4,7 +4,9 @@
 //----------------------------------------------
 
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Reflection;
 using System.Collections.Generic;
 using Entry = PropertyReferenceDrawer.Entry;

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using UnityEngine;
 using System.Collections;
 using LuaInterface;
@@ -140,7 +140,7 @@ public class MonoBehaviourWrap
 			}
 		}
 
-		obj.runInEditMode = LuaScriptMgr.GetBoolean(L, 3);
+        obj.runInEditMode = LuaScriptMgr.GetBoolean(L, 3);
 		return 0;
 	}
 

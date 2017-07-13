@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -120,17 +122,17 @@ public class Export {
 	}
     [MenuItem("Export/Test")]
     private static void test(){
-        BuildABs("/Android",BuildTarget.Android);
+        BuildABs("ABs/Android",BuildTarget.iOS);
     }
 	public static void BuildABs(string outPath, BuildTarget target)
 	{
-		string path = Application.dataPath + outPath;
+		string path = Application.dataPath + "/"+outPath;
         Debug.Log(path);
         if (!Directory.Exists(path)){
             Directory.CreateDirectory(path);
         }
         BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.UncompressedAssetBundle;
-		BuildPipeline.BuildAssetBundles("Assets/ABs/" + outPath, options, target);
+		BuildPipeline.BuildAssetBundles("Assets/" + outPath, options, target);
 		AssetDatabase.Refresh();
 
 	}

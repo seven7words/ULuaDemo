@@ -530,7 +530,7 @@ static public class NGUITools
 		if (widgets.Length == 0) return 0;
 
 		int depth = int.MaxValue;
-		
+
 		for (int i = 0, imax = widgets.Length; i < imax; ++i)
 		{
 			if (widgets[i].enabled)
@@ -596,7 +596,7 @@ static public class NGUITools
 			if (panel != null)
 			{
 				UIPanel[] panels = go.GetComponentsInChildren<UIPanel>(true);
-				
+
 				for (int i = 0; i < panels.Length; ++i)
 				{
 					UIPanel p = panels[i];
@@ -1334,7 +1334,7 @@ static public class NGUITools
 		go.layer = layer;
 
 		Transform t = go.transform;
-		
+
 		for (int i = 0, imax = t.childCount; i < imax; ++i)
 		{
 			Transform child = t.GetChild(i);
@@ -1597,7 +1597,7 @@ static public class NGUITools
 			mSides[2] = cam.ViewportToWorldPoint(new Vector3(1f, 0.5f, depth));
 			mSides[3] = cam.ViewportToWorldPoint(new Vector3(0.5f, 0f, depth));
 		}
-		
+
 		if (relativeTo != null)
 		{
 			for (int i = 0; i < 4; ++i)
@@ -1766,9 +1766,12 @@ static public class NGUITools
 
 				if (s_GetSizeOfMainGameView == null)
 				{
+					#if UNITY_EDITOR
+
 					System.Type type = System.Type.GetType("UnityEditor.GameView,UnityEditor");
 					s_GetSizeOfMainGameView = type.GetMethod("GetSizeOfMainGameView",
 						System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+					#endif
 				}
 				mGameSize = (Vector2)s_GetSizeOfMainGameView.Invoke(null, null);
 			}

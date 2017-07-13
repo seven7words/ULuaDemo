@@ -1312,11 +1312,11 @@ public class UIWidget : UIRect
 		}
 	}
 
-	/// <summary>
-	/// Whether the widget should have some form of handles shown.
-	/// </summary>
+    /// <summary>
+    /// Whether the widget should have some form of handles shown.
+    /// </summary>
 
-	static public bool showHandles
+    static public bool showHandles
 	{
 		get
 		{

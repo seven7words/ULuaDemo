@@ -4,7 +4,9 @@
 //----------------------------------------------
 
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [CustomEditor(typeof(TweenVolume))]
 public class TweenVolumeEditor : UITweenerEditor

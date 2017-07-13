@@ -4,7 +4,9 @@
 //----------------------------------------------
 
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 /// <summary>
 /// Editor helper class containing functions related to drawing things in the Scene View using UnityEditor.Handles.

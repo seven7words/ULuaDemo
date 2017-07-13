@@ -3,7 +3,9 @@
 // Copyright © 2011-2015 Tasharen Entertainment
 //----------------------------------------------
 
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
