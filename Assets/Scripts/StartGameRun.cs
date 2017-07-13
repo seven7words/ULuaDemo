@@ -15,6 +15,7 @@ public class StartGameRun : MonoBehaviour
             mgr.DoStringFile(luaUpdate.name, luaUpdate.text);
             mgr.CallLuaFunction("Test",obj);
             mgr.Start();
+            
         }
 	}
 

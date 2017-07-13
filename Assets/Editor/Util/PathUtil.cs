@@ -38,10 +38,25 @@ public class PathUtil
             return appPath + "ABs/files.txt";
         }
     }
+    /// <summary>
+    /// 获取unity下的相对路径
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static string GetAssetPath(string path){
         path = path.Replace("\\", "/");
         string localPath = Application.dataPath.Replace("Assets", "");
         return path.Replace(localPath, "");
+    }
+    /// <summary>
+    /// 获取系统绝对路径
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public static string GetUtterAssetPath(string path)
+    {
+        string localPath = Application.dataPath.Replace("Assets", "");
+        return localPath +path;
     }
     public static string GetFileNameWithoutExt(string assetPath){
         string fileName = assetPath.Replace("Assets/", "");

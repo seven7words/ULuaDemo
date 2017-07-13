@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Net;
 using System.Text;
 using UnityEditor;
 public class Export {
+    #region csv转换成lua表
     //--------------csv----------------
     static void changeLuaToUTF8(string luaPath){
         DirectoryInfo dir = new DirectoryInfo(luaPath);
@@ -58,5 +60,31 @@ public class Export {
         changeLuaToUTF8(PathUtil.luaPath+"game/configs/");
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+    }
+#endregion
+    
+    [MenuItem("Export/资源/图集更新")]
+    static void UpdateAtlas()
+    {
+        DirectoryInfo info = new DirectoryInfo(PathUtil.atlasPath);
+        foreach (FileInfo file in info.GetFiles("*.prefab"))
+        {
+            string atlas = PathUtil.GetAssetPath(file.FullName);
+            string[] atlases = AssetDatabase.GetDependencies(new string[]{atlas});
+            List<byte> bytes = new List<byte>();
+            foreach (var path in atlases)
+            {
+                if (path.Contains(".cs"))
+                {
+                  bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(path))); 
+                }
+            }
+            string md5 = MD5Util.GetMD5Hash(bytes.ToArray()) ;
+            Debug.Log(md5);
+            md5 = MD5Util.GetMD5Hash(File.ReadAllBytes(file.FullName));
+            Debug.Log(md5);
+            bool m = MD5Util.checkMD5Hash(File.ReadAllBytes(file.FullName), md5);
+            Debug.Log(m);
+        }
     }
 }
