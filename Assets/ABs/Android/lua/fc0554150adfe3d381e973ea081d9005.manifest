@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1553109747
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 16cce8e35f76e0fd002f25466ced3942
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7dfb045827e1bc42b15dd84b6536b54c
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {fileID: 11500000, guid: 2e816879ed2e06f4dbca9ae07a347bb4, type: 3}
+Assets:
+- Assets/Prefabs/lua/fc0554150adfe3d381e973ea081d9005.asset
+Dependencies: []

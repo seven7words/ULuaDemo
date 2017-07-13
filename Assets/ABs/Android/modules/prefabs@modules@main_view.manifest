@@ -1,0 +1,61 @@
+ManifestFileVersion: 0
+CRC: 2102138512
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4c94e1a470e6bf71716c50b08695374f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 318e9d00731f827e6e16bdc51519e791
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5c041f61e4a9fbf4e830210f5d933ece, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 75e7459110b9666449485c40f25362a5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c8077b76001d36d489868d20d28bddb9, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 16f84428dd10a4ad1a9d359934974d74, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 04d1b7c9e9a19a24ab67123a43c6544b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 07c4de3b4b6fe9045b059ee627c100df, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b1bd99dcf43f97d48bb6215c70f0cd40, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6c20815eb3063c24290a61b7020a1836, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Modules/main_view.prefab
+- Assets/Prefabs/UI/main/btn_up.prefab
+- Assets/Prefabs/UI/main/up_item.prefab
+- Assets/Prefabs/UI/main/right_up.prefab
+Dependencies:
+- C:/Users/woopqww111/Documents/ULuaDemo/Assets/ABs/Android/atlas/prefabs@atlas@comm_atlas
+- C:/Users/woopqww111/Documents/ULuaDemo/Assets/ABs/Android/atlas/prefabs@atlas@ui_battle_atlas
+- C:/Users/woopqww111/Documents/ULuaDemo/Assets/ABs/Android/atlas/prefabs@atlas@general_icon_atlas
+- C:/Users/woopqww111/Documents/ULuaDemo/Assets/ABs/Android/atlas/prefabs@atlas@main_atlas

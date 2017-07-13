@@ -43,7 +43,10 @@ public class LightWrap
 			new LuaField("alreadyLightmapped", get_alreadyLightmapped, set_alreadyLightmapped),
 			new LuaField("isBaked", get_isBaked, null),
 			new LuaField("cullingMask", get_cullingMask, set_cullingMask),
-			new LuaField("lightmapBakeType", get_lightmapBakeType, set_lightmapBakeType),
+#if UNITY_EDITOR
+		    new LuaField("lightmapBakeType", get_lightmapBakeType, set_lightmapBakeType),    
+#endif
+           
 			new LuaField("commandBufferCount", get_commandBufferCount, null),
 		};
 
@@ -582,31 +585,35 @@ public class LightWrap
 		return 1;
 	}
 
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_lightmapBakeType(IntPtr L)
-	{
-		object o = LuaScriptMgr.GetLuaObject(L, 1);
-		Light obj = (Light)o;
+#if UNITY_EDITOR
+    [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+    static int get_lightmapBakeType(IntPtr L)
+    {
+        object o = LuaScriptMgr.GetLuaObject(L, 1);
+        Light obj = (Light)o;
 
-		if (obj == null)
-		{
-			LuaTypes types = LuaDLL.lua_type(L, 1);
+        if (obj == null)
+        {
+            LuaTypes types = LuaDLL.lua_type(L, 1);
 
-			if (types == LuaTypes.LUA_TTABLE)
-			{
-				LuaDLL.luaL_error(L, "unknown member name lightmapBakeType");
-			}
-			else
-			{
-				LuaDLL.luaL_error(L, "attempt to index lightmapBakeType on a nil value");
-			}
-		}
+            if (types == LuaTypes.LUA_TTABLE)
+            {
+                LuaDLL.luaL_error(L, "unknown member name lightmapBakeType");
+            }
+            else
+            {
+                LuaDLL.luaL_error(L, "attempt to index lightmapBakeType on a nil value");
+            }
+        }
 
-		LuaScriptMgr.Push(L, obj.lightmapBakeType);
-		return 1;
-	}
+        LuaScriptMgr.Push(L, obj.lightmapBakeType);
+        return 1;
+    }
 
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+#endif
+
+
+    [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_commandBufferCount(IntPtr L)
 	{
 		object o = LuaScriptMgr.GetLuaObject(L, 1);
@@ -1109,32 +1116,35 @@ public class LightWrap
 		obj.cullingMask = (int)LuaScriptMgr.GetNumber(L, 3);
 		return 0;
 	}
+#if UNITY_EDITOR
+    [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+    static int set_lightmapBakeType(IntPtr L)
+    {
+        object o = LuaScriptMgr.GetLuaObject(L, 1);
+        Light obj = (Light)o;
 
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_lightmapBakeType(IntPtr L)
-	{
-		object o = LuaScriptMgr.GetLuaObject(L, 1);
-		Light obj = (Light)o;
+        if (obj == null)
+        {
+            LuaTypes types = LuaDLL.lua_type(L, 1);
 
-		if (obj == null)
-		{
-			LuaTypes types = LuaDLL.lua_type(L, 1);
+            if (types == LuaTypes.LUA_TTABLE)
+            {
+                LuaDLL.luaL_error(L, "unknown member name lightmapBakeType");
+            }
+            else
+            {
+                LuaDLL.luaL_error(L, "attempt to index lightmapBakeType on a nil value");
+            }
+        }
 
-			if (types == LuaTypes.LUA_TTABLE)
-			{
-				LuaDLL.luaL_error(L, "unknown member name lightmapBakeType");
-			}
-			else
-			{
-				LuaDLL.luaL_error(L, "attempt to index lightmapBakeType on a nil value");
-			}
-		}
+        obj.lightmapBakeType = (LightmapBakeType)LuaScriptMgr.GetNetObject(L, 3, typeof(LightmapBakeType));
+        return 0;
+    }
+#endif
 
-		obj.lightmapBakeType = (LightmapBakeType)LuaScriptMgr.GetNetObject(L, 3, typeof(LightmapBakeType));
-		return 0;
-	}
 
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+
+    [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int AddCommandBuffer(IntPtr L)
 	{
 		int count = LuaDLL.lua_gettop(L);

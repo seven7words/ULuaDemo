@@ -426,14 +426,14 @@ public class ApplicationWrap
 		if (count == 1)
 		{
 			string arg0 = LuaScriptMgr.GetLuaString(L, 1);
-			Application.CaptureScreenshot(arg0);
+			ScreenCapture.CaptureScreenshot(arg0);
 			return 0;
 		}
 		else if (count == 2)
 		{
 			string arg0 = LuaScriptMgr.GetLuaString(L, 1);
 			int arg1 = (int)LuaScriptMgr.GetNumber(L, 2);
-			Application.CaptureScreenshot(arg0,arg1);
+			ScreenCapture.CaptureScreenshot(arg0,arg1);
 			return 0;
 		}
 		else

@@ -122,7 +122,7 @@ public class Export {
 	}
     [MenuItem("Export/Test")]
     private static void test(){
-        BuildABs("ABs/Android",BuildTarget.iOS);
+        BuildABs("ABs/Android",BuildTarget.Android);
     }
 	public static void BuildABs(string outPath, BuildTarget target)
 	{

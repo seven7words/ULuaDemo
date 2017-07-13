@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ULuaDemo", "ULuaDemo.csproj", "{7CC5175B-E626-D4C7-AD73-1F6ED6014205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ULuaDemo.Editor", "ULuaDemo.Editor.csproj", "{08DDAC01-1E23-CE94-2A88-7C7F7BE4C264}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CC5175B-E626-D4C7-AD73-1F6ED6014205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CC5175B-E626-D4C7-AD73-1F6ED6014205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CC5175B-E626-D4C7-AD73-1F6ED6014205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CC5175B-E626-D4C7-AD73-1F6ED6014205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08DDAC01-1E23-CE94-2A88-7C7F7BE4C264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DDAC01-1E23-CE94-2A88-7C7F7BE4C264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08DDAC01-1E23-CE94-2A88-7C7F7BE4C264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08DDAC01-1E23-CE94-2A88-7C7F7BE4C264}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
