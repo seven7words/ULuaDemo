@@ -368,6 +368,7 @@
     <Compile Include="Assets\uLua\Source\LuaWrap\stringWrap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\ABs\files.txt" />
     <None Include="Assets\Lua\System\readme.txt" />
     <None Include="Assets\Lua\game\start_lua.lua.txt" />
     <None Include="Assets\NGUI\Examples\Resources\Localization.txt" />

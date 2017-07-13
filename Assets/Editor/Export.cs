@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEditor;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
 using System.Text;
-using UnityEditor;
+using System;
 public class Export {
     //--------------csv----------------
     static void changeLuaToUTF8(string luaPath){
@@ -59,4 +60,78 @@ public class Export {
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
+	[MenuItem("Export/资源/图集")]
+	static void UpdateAtlas()
+	{
+		DirectoryInfo info = new DirectoryInfo(PathUtil.atlasPath);
+		Dictionary<string, string[]> dic = VersionUtil.getVerDic;
+		//List<string> oldDic = new List<string>();
+		//foreach (string key in dic.Keys)
+		//{
+		//	if (key.Contains("prefabs/atlas/"))
+		//	{
+		//		string path = PathUtil.appPath + key;
+		//		if (!File.Exists(path + ".prefab"))
+		//		{
+		//			Debug.LogError("删除空节点： " + key);
+		//			oldDic.Add(key);
+		//		}
+		//	}
+		//}
+
+		foreach (FileInfo file in info.GetFiles("*.prefab"))
+		{
+			string atlas = PathUtil.GetAssetPath(file.FullName);
+
+			string[] atlass = AssetDatabase.GetDependencies(new string[] { atlas });
+			List<byte> bytes = new List<byte>();
+			for (int i = 0; i < atlass.Length; i++)
+			{
+                if(!atlass[i].Contains(".cs"))
+				    bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
+			}
+			string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
+
+			//更新配置表ab值
+			string atlasPath = PathUtil.GetFileNameWithoutExt(atlas);
+			string[] data = new string[] { atlasPath, md5, "0", "0" };
+			dic[atlasPath] = data;
+			string name = PathUtil.GetAbName(atlasPath);
+			SetAssetbundleNames(atlass, "atlas/" + name);
+		}
+		AssetDatabaseUtil.Clear();
+		VersionUtil.writeVersion(dic);
+		Debug.Log("更新图集Assetbundle值完毕！");
+	}
+	/// <summary>
+	/// 批量设置Assetbundle值
+	/// </summary>
+	/// <param name="paths"></param>
+	/// <param name="name"></param>
+	private static void SetAssetbundleNames(string[] paths, string name)
+	{
+		foreach (string path in paths)
+		{
+			if (!path.Contains(".cs"))
+			{
+				AssetDatabaseUtil.SetName(path, name);
+			}
+		}
+	}
+    [MenuItem("Export/Test")]
+    private static void test(){
+        BuildABs("/Android",BuildTarget.Android);
+    }
+	public static void BuildABs(string outPath, BuildTarget target)
+	{
+		string path = Application.dataPath + outPath;
+        Debug.Log(path);
+        if (!Directory.Exists(path)){
+            Directory.CreateDirectory(path);
+        }
+        BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.UncompressedAssetBundle;
+		BuildPipeline.BuildAssetBundles("Assets/ABs/" + outPath, options, target);
+		AssetDatabase.Refresh();
+
+	}
 }

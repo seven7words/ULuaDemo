@@ -163,7 +163,10 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\CreatePrefabs.cs" />
     <Compile Include="Assets\Editor\Export.cs" />
+    <Compile Include="Assets\Editor\Util\AssetDatabaseUtil.cs" />
+    <Compile Include="Assets\Editor\Util\MD5Util.cs" />
     <Compile Include="Assets\Editor\Util\PathUtil.cs" />
+    <Compile Include="Assets\Editor\Util\VersionUtil.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvDatabaseInspector.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvFindItem.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\ActiveAnimationEditor.cs" />
@@ -260,6 +263,7 @@
     <Compile Include="Assets\uLua\Editor\Wrap\ToLua_UnityEngine_Object.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\ABs\files.txt" />
     <None Include="Assets\Lua\System\readme.txt" />
     <None Include="Assets\Lua\game\start_lua.lua.txt" />
     <None Include="Assets\NGUI\Examples\Resources\Localization.txt" />
