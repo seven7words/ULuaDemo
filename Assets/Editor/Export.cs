@@ -62,55 +62,195 @@ public class Export {
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
-	[MenuItem("Export/资源/图集")]
-	static void UpdateAtlas()
-	{
-		DirectoryInfo info = new DirectoryInfo(PathUtil.atlasPath);
-		Dictionary<string, string[]> dic = VersionUtil.getVerDic;
-		//List<string> oldDic = new List<string>();
-		//foreach (string key in dic.Keys)
-		//{
-		//	if (key.Contains("prefabs/atlas/"))
-		//	{
-		//		string path = PathUtil.appPath + key;
-		//		if (!File.Exists(path + ".prefab"))
-		//		{
-		//			Debug.LogError("删除空节点： " + key);
-		//			oldDic.Add(key);
-		//		}
-		//	}
-		//}
 
-		foreach (FileInfo file in info.GetFiles("*.prefab"))
-		{
-			string atlas = PathUtil.GetAssetPath(file.FullName);
+    #region 资源assetbundle更新
 
-			string[] atlass = AssetDatabase.GetDependencies(new string[] { atlas });
-			List<byte> bytes = new List<byte>();
-			for (int i = 0; i < atlass.Length; i++)
-			{
-                if(!atlass[i].Contains(".cs"))
-				    bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
-			}
-			string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
 
-			//更新配置表ab值
-			string atlasPath = PathUtil.GetFileNameWithoutExt(atlas);
-			string[] data = new string[] { atlasPath, md5, "0", "0" };
-			dic[atlasPath] = data;
-			string name = PathUtil.GetAbName(atlasPath);
-			SetAssetbundleNames(atlass, "atlas/" + name);
-		}
-		AssetDatabaseUtil.Clear();
-		VersionUtil.writeVersion(dic);
-		Debug.Log("更新图集Assetbundle值完毕！");
-	}
-	/// <summary>
-	/// 批量设置Assetbundle值
-	/// </summary>
-	/// <param name="paths"></param>
-	/// <param name="name"></param>
-	private static void SetAssetbundleNames(string[] paths, string name)
+
+    [MenuItem("Export/资源/图集")]
+    static void UpdateAtlas()
+    {
+        DirectoryInfo info = new DirectoryInfo(PathUtil.atlasPath);
+        Dictionary<string, string[]> dic = VersionUtil.getVerDic;
+        List<string> oldDic = new List<string>();
+        foreach (string key in dic.Keys)
+        {
+            if (key.Contains("prefabs/atlas/"))
+            {
+                string path = PathUtil.appPath + key;
+                if (!File.Exists(path + ".prefab"))
+                {
+                    Debug.LogError("删除空节点： " + key);
+                    oldDic.Add(key);
+                }
+            }
+        }
+        dic = deleteDic(oldDic, dic);
+
+        foreach (FileInfo file in info.GetFiles("*.prefab"))
+        {
+            string atlas = PathUtil.GetAssetPath(file.FullName);
+
+            string[] atlass = AssetDatabase.GetDependencies(new string[] { atlas });
+            List<byte> bytes = new List<byte>();
+            for (int i = 0; i < atlass.Length; i++)
+            {
+                if (!atlass[i].Contains(".cs"))
+                    bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
+            }
+            string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
+
+            //更新配置表ab值
+            string atlasPath = PathUtil.GetFileNameWithoutExt(atlas);
+            string[] data = new string[] { atlasPath, md5, "0", "0" };
+            dic[atlasPath] = data;
+            string name = PathUtil.GetAbName(atlasPath);
+            SetAssetbundleNames(atlass, "atlas/" + name);
+        }
+        AssetDatabaseUtil.Clear();
+        VersionUtil.writeVersion(dic);
+        Debug.Log("更新图集Assetbundle值完毕！");
+    }
+
+    [MenuItem("Export/资源/字体")]
+    static void UpdateFont()
+    {
+        DirectoryInfo info = new DirectoryInfo(PathUtil.fontPath);
+        Dictionary<string, string[]> dic = VersionUtil.getVerDic;
+        List<string> oldDic = new List<string>();
+        foreach (string key in dic.Keys)
+        {
+            if (key.Contains("_lang/fongt/"))
+            {
+                string path = PathUtil.appPath + key;
+                if (!File.Exists(path + ".ttf"))
+                {
+                    oldDic.Add("删除空节点："+key);
+                }
+            }
+        }
+        dic = deleteDic(oldDic, dic);
+        foreach (FileInfo file in info.GetFiles("*.ttf"))
+        {
+            string atlas = PathUtil.GetAssetPath(file.FullName);
+            string[] atlass = AssetDatabase.GetDependencies(new string[] {atlas});
+            List<byte> bytes = new List<byte>();
+            for (int i = 0; i < atlass.Length; i++)
+            {
+                bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
+            }
+            string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
+            //更新配置表ab值
+            string atlasPath = PathUtil.GetFileNameWithoutExt(atlas);
+            string[] data = new string[]{atlasPath,md5,"0","0"};
+            dic[atlasPath] = data;
+            string name = PathUtil.GetAbName(atlasPath);
+            Debug.Log(name);
+            SetAssetbundleNames(atlass,"font/"+name);
+        }
+        AssetDatabaseUtil.Clear();
+        VersionUtil.writeVersion(dic);
+        Debug.Log("更新字体值完毕");
+
+    }
+
+    [MenuItem("Export/资源/精灵图片")]
+    static void UpdateTexture()
+    {
+        Dictionary<string, string[]> vDic = VersionUtil.getVerDic;
+        DirectoryInfo info = new DirectoryInfo(PathUtil.texPath);
+        List<string> oldDic = new List<string>();
+        foreach (string key in vDic.Keys)
+        {
+            if (key.Contains("textures/"))
+            {
+                string path = PathUtil.appPath + key;
+                if (!File.Exists(path + ".png"))
+                {
+                    Debug.LogError("删除空节点："+key);
+                    oldDic.Add(key);
+                }
+            }
+        }
+        vDic = deleteDic(oldDic, vDic);
+        foreach (FileInfo file in info.GetFiles("*.png",SearchOption.AllDirectories))
+        {
+            string path = file.FullName;
+            string assetPath = PathUtil.GetAssetPath(path);
+            AssetDatabaseUtil.SetName(assetPath,"");//meta上ab会影响打包，先清理掉
+            List<byte> list = new List<byte>();
+            //贴图可能会更改压缩格式，这时需要重新打包
+            string metaFullPath = path + ".meta";
+            byte[] metaDatas = File.ReadAllBytes(metaFullPath);
+            list.AddRange(metaDatas);
+            byte[] datas = File.ReadAllBytes(path);
+            list.AddRange(datas);
+            string hash = MD5Util.GetMD5Hash(list.ToArray());
+            string fileName = PathUtil.GetFileNameWithoutExt(assetPath);
+            string[] itemArr = new string[]{fileName,hash,"0","0"};
+            string name = PathUtil.GetAbName(fileName);
+            AssetDatabaseUtil.SetName(assetPath,"tex/"+name);
+            vDic[fileName] = itemArr;
+        }
+        AssetDatabaseUtil.Clear();
+        VersionUtil.writeVersion(vDic);
+        Debug.Log("更新精灵图片Assetbundle值完毕！");
+    }
+
+    [MenuItem("Export/资源/模块预设")]
+    static void UpdatePrefabs()
+    {
+        DirectoryInfo info = new DirectoryInfo(PathUtil.modulesPath);
+        Dictionary<string, string[]> dic = VersionUtil.getVerDic;
+        List<string> oldDic = new List<string>();
+        foreach (string key in dic.Keys)
+        {
+            if (key.Contains("prefab/modules/"))
+            {
+                string path = PathUtil.appPath + key;
+                if (!File.Exists(path + ".prefab"))
+                {
+                    Debug.LogError("删除空节点："+key);
+                    oldDic.Add(key);
+                }
+            }
+        }
+        dic = deleteDic(oldDic, dic);
+        foreach (FileInfo file in info.GetFiles("*.prefab"))
+        {
+            string atlas = PathUtil.GetAssetPath(file.FullName);
+            string[] atlass = AssetDatabase.GetDependencies(new string[] {atlas});
+            List<byte> bytes = new List<byte>();
+            List<string> modules = new List<string>();
+            for (int i = 0; i < atlass.Length; i++)
+            {
+                if (atlass[i].IndexOf(".prefab") != -1 && atlass[i].IndexOf("Prefabs/atlas") == -1 &&
+                    atlass[i].IndexOf(".png") == -1)
+                {
+                    modules.Add(atlass[i]);
+                    bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
+                }
+            }
+            string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
+            //更新配置表ab值
+            string atlasPath = PathUtil.GetFileNameWithoutExt(atlas);
+            string[] data = new string[] { atlasPath, md5, "0", "0" };
+            dic[atlasPath] = data;
+            string name = PathUtil.GetAbName(atlasPath);
+            SetAssetbundleNames(modules.ToArray(), "modules/" + name);
+        }
+        AssetDatabaseUtil.Clear();
+        VersionUtil.writeVersion(dic);
+        Debug.Log("更新模块预设Assetbundle值完毕！");
+    }
+    #endregion
+
+    /// <summary>
+    /// 批量设置Assetbundle值
+    /// </summary>
+    /// <param name="paths"></param>
+    /// <param name="name"></param>
+    private static void SetAssetbundleNames(string[] paths, string name)
 	{
 		foreach (string path in paths)
 		{
@@ -123,8 +263,17 @@ public class Export {
     [MenuItem("Export/Test")]
     private static void test(){
         BuildABs("ABs/Android",BuildTarget.Android);
+        //UpdateABsSize("ABs/Android");
+        //ClearAbs("ABs/Android");
     }
-	public static void BuildABs(string outPath, BuildTarget target)
+    [MenuItem("Export/Clear")]
+    private static void Clear()
+    {
+        //BuildABs("ABs/Android",BuildTarget.Android);
+        //UpdateABsSize("ABs/Android");
+        ClearAbs("ABs/Android");
+    }
+    public static void BuildABs(string outPath, BuildTarget target)
 	{
 		string path = Application.dataPath + "/"+outPath;
         Debug.Log(path);
@@ -134,6 +283,159 @@ public class Export {
         BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.UncompressedAssetBundle;
 		BuildPipeline.BuildAssetBundles("Assets/" + outPath, options, target);
 		AssetDatabase.Refresh();
+	    UpdateABsSize(outPath);
 
 	}
+    /// <summary>
+    /// 更新AB文件大小--配置表
+    /// </summary>
+    /// <param name="outPath"></param>
+    private static void UpdateABsSize(string outPath)
+    {
+        //string path = Application.dataPath + "/" + outPath;
+        ////1.获取该路径下的所有的文件名 ----文件的md5值
+        ////2.获取配置表md5 md5-配置信息 值
+        //List<string> abNames = new List<string>();
+        //Dictionary<string, string[]> hashList = VersionUtil.getVerDic;
+        ////Debug.Log(hashList["1efaf6265e71dfc58d892f6b2c0c32c2"]);
+        //DirectoryInfo info = new DirectoryInfo(path);
+        //path = path.Replace("/","\\");
+        //foreach (FileInfo file in info.GetFiles("*",SearchOption.AllDirectories))
+        //{
+        //    if (path!=file.DirectoryName&& string.IsNullOrEmpty(file.Extension))
+        //    {
+        //        abNames.Add(file.FullName);
+        //    }
+
+        //}
+        //Dictionary<string, string[]> hashSize = new Dictionary<string, string[]>();
+        //foreach (string hashListKey in hashList.Keys)
+        //{
+        //    Debug.Log(hashListKey);
+        //}
+        //foreach (string abPath in abNames)
+        //{
+        //    FileInfo file = new FileInfo(abPath);
+        //    string name = file.Name;
+        //    Debug.Log(name);
+        //    if (hashList.ContainsKey(name))
+        //    {
+        //        Debug.Log("有");
+        //        string[] cfg =hashList[name];
+        //        cfg[2] = File.ReadAllBytes(abPath).Length.ToString();
+        //        hashSize.Add(cfg[0],cfg);
+        //    }
+
+        //}
+        //VersionUtil.writeVersion(hashSize);
+        //AssetDatabase.Refresh();
+        string path = Application.dataPath + "/" + outPath;
+        // 1 获取该路径下的所有的文件名 ---  文件的MD5
+        // 2 获取配置表  md5 - 配置信息 值
+        List<string> abNames = new List<string>();
+        Dictionary<string, string[]> hashList = VersionUtil.getHashDic;
+        Dictionary<string, string[]> keyList = VersionUtil.getLowerVerDic;
+        DirectoryInfo infos = new DirectoryInfo(path);
+        path = path.Replace("/", "\\");
+        foreach (FileInfo info in infos.GetFiles("*", SearchOption.AllDirectories))
+        {
+            if (path != info.DirectoryName && string.IsNullOrEmpty(info.Extension))
+            {
+                abNames.Add(info.FullName);
+            }
+        }
+        Dictionary<string, string[]> haseSize = new Dictionary<string, string[]>();
+        foreach (string abPath in abNames)
+        {
+            FileInfo info = new FileInfo(abPath);
+            string name = info.Name;
+            if (name.Contains("@"))
+            {
+                Debug.Log(name);
+                name = PathUtil.RestoreAbName(name);
+
+                if (keyList.ContainsKey(name))
+                {
+                    string[] cfg = keyList[name];
+                    cfg = hashList[cfg[1]];
+                    cfg[2] = File.ReadAllBytes(abPath).Length + "";
+                    cfg[3] = "0";
+                    haseSize.Add(cfg[0], cfg);
+                }
+            }
+            else
+            {
+                if (hashList.ContainsKey(name))
+                {
+                    string[] cfg = hashList[name];
+                    cfg[2] = File.ReadAllBytes(abPath).Length + "";
+                    cfg[3] = "0";
+                    haseSize.Add(cfg[0], cfg);
+                }
+            }
+
+        }
+        VersionUtil.writeVersion(haseSize);
+        AssetDatabase.Refresh();
+        Debug.Log("更新完毕");
+    }
+
+    static void ClearAbs(string outPath)
+    {
+        string path = Application.dataPath + "/" + outPath;
+        AssetDatabaseUtil.Clear();
+        if (!Directory.Exists(path))
+        {
+            Debug.Log("AB 文件 还未被创建！！");
+            return;
+        }
+        Dictionary<string, string[]> keyDic = VersionUtil.getLowerVerDic;
+        //获取真确的打包数据
+        string[] abData = AssetDatabase.GetAllAssetBundleNames();
+        Dictionary<string, bool> abDataList = new Dictionary<string, bool>();
+        foreach (string name in abData)
+        {
+            //Debug.Log(name);
+            string ab = name.Split('/')[1];
+            if (ab.Contains("@"))
+            {
+                ab = PathUtil.RestoreAbName(ab);
+                if (keyDic.ContainsKey(ab))
+                {
+                    ab = keyDic[ab][1];
+                }
+            }
+            abDataList.Add(ab, true);
+        }
+        //更新files 文件
+        VersionUtil.ClearVersion(abDataList);
+        int count = 0;
+        DirectoryInfo infos = new DirectoryInfo(path);
+        path = path.Replace("/", "\\");
+        foreach (FileInfo info in infos.GetFiles("*", SearchOption.AllDirectories))
+        {
+            if (path != info.DirectoryName && string.IsNullOrEmpty(info.Extension))
+            {
+
+                if (!abDataList.ContainsKey(info.Name))
+                {
+                    count++;
+                    Debug.Log("删除废弃AB文件：" + info.FullName);
+                    File.Delete(info.FullName + ".manifest");
+                    File.Delete(info.FullName);
+                    
+                }
+            }
+        }
+        Debug.Log("清理废弃AB文件:" + count);
+        AssetDatabase.Refresh();
+    }
+    private static Dictionary<string, string[]> deleteDic(List<string> keys, Dictionary<string, string[]> dic)
+    {
+        for (int i = 0; i < keys.Count; i++)
+        {
+            dic.Remove(keys[i]);
+        }
+        return dic;
+    }
 }
