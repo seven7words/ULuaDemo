@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System;
+using System.Linq;
+using System.Net;
+using Ionic.Zlib;
 public class Export {
     //--------------csv----------------
     static void changeLuaToUTF8(string luaPath){
@@ -243,8 +246,162 @@ public class Export {
         VersionUtil.writeVersion(dic);
         Debug.Log("更新模块预设Assetbundle值完毕！");
     }
+
+    [MenuItem("Export/Lua/更新AB值")]
+    static void UpdateLua()
+    {
+        if (!Directory.Exists(PathUtil.luaAssetPath))
+        {
+            Directory.CreateDirectory(PathUtil.luaAssetPath);
+        }
+        DirectoryInfo info = new DirectoryInfo(PathUtil.luaPath);
+        Dictionary<string, string[]> cDic = VersionUtil.getVerDic;
+        List<string> hashes = new List<string>();
+        foreach (FileInfo  file in info.GetFiles("*.lua*",SearchOption.AllDirectories))
+        {
+            if (!file.FullName.Contains(".meta"))
+            {
+               hashes.Add(AddLuaScriptAsset(file.FullName, cDic));
+            }
+            
+        }
+        foreach (FileInfo file in info.GetFiles("*.p*", SearchOption.AllDirectories))
+        {
+            if (!file.FullName.Contains(".meta"))
+            {
+                hashes.Add(AddLuaScriptAsset(file.FullName, cDic));
+            }
+        }
+        foreach (FileInfo file in info.GetFiles("*.lua.txt", SearchOption.AllDirectories))
+        {
+            if (!file.FullName.Contains(".meta"))
+            {
+                hashes.Add(AddLuaScriptAsset(file.FullName, cDic));
+            }
+        }
+        //清理已删除的脚本的asset文件
+        info = new DirectoryInfo(PathUtil.luaAssetPath);
+        
+        foreach (FileInfo file in info.GetFiles("*.asset", SearchOption.AllDirectories))
+        {
+            if (!hashes.Contains(file.Name))
+            {
+                string old1Path = string.Format("Assets/prefabs/lua/{0}.asset", file.Name );
+                AssetDatabase.DeleteAsset(old1Path);
+                Debug.Log("delete asset "+file.Name );
+            }
+        }
+        VersionUtil.writeVersion(cDic);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        
+    }
     #endregion
 
+    private static string AddLuaScriptAsset(string filePath, Dictionary<string, string[]> dic)
+    {
+        //1.得到md5
+        //2.判断是否已写入配置表
+        //3.如果写入 判断lua脚本是否发生改变，如果md5相等则返回hash
+        //4.生成asset文件到Asset/prefab/lua目录下，并设置引用
+        //5.更新配置信息键值
+        string path = PathUtil.GetFileNameWithoutExt(PathUtil.GetAssetPath(filePath)) ;
+        byte[] data = File.ReadAllBytes(filePath);
+        byte[] meta = File.ReadAllBytes(filePath+".meta");
+        List<byte> datas = new List<byte>();
+        datas.AddRange(data);
+        datas.AddRange(meta);
+        string hash = MD5Util.GetMD5Hash(data.ToArray());
+        if (dic.ContainsKey(path))
+        {
+            string[] news = dic[path];
+            if (hash == news[1])
+            {
+                string old1Path = string.Format("Assets/prefabs/lua/{0}.asset", hash);
+
+                if (File.Exists(old1Path))
+                {
+
+                    return hash;
+                }
+
+            }
+            else
+            {
+                string oldPath = string.Format("Assets/prefabs/lua/{0}.asset", news[1]);
+                AssetDatabase.DeleteAsset(oldPath);
+                Debug.Log(path + "oladddd" + oldPath);
+            }
+            
+        }
+        ScriptAsset asset = new ScriptAsset();
+        asset.fileName = path;
+        asset.data = data;
+        int size = data.Length;
+        string assetPath = string.Format("Assets/prefabs/lua/{0}.asset",hash);
+       // Debug.Log(path+"      生成"+size);
+        AssetDatabase.CreateAsset(asset,assetPath);
+        AssetDatabaseUtil.SetName(assetPath,"lua/"+hash);
+        string[] item = new string[]
+        {
+            path,
+            hash,
+            "0",
+            "0"
+        };
+        dic[path] = item;
+        Debug.Log(path);
+        return path;
+    }
+    /// <summary>
+    /// 压缩导出所有ab文件
+    /// </summary>
+    /// <param name="platform"></param>
+    static void compressAndExportAllAssetBundle(string platform)
+    {
+        //1.判断该目录下是否含有文件路径，没有就创建
+        string platformPath = Application.dataPath.Replace("Assets", string.Format("Release/{0}/datas/", platform));
+        if (!Directory.Exists(platformPath))
+        {
+            Directory.CreateDirectory(platformPath);
+            Dictionary<string, string[]> vDic = VersionUtil.getHashDic;
+            //获取ab文件路径
+            DirectoryInfo info = new DirectoryInfo(PathUtil.abs+"/"+platform);
+            //1.路径下所有文件夹遍历获取，没有就创建platformab文件压缩路径
+            foreach (DirectoryInfo directoryInfo in info.GetDirectories("*.*",SearchOption.AllDirectories))
+            {
+                //2.遍历文件夹下所有AB文件
+                foreach (FileInfo file in directoryInfo.GetFiles())
+                {
+                    //3获取AB文件
+                    if (file.Extension != ".meta" && file.Extension != ".manifest")
+                    {
+                        string path = platformPath + file.Name;
+                        byte[] data;
+                        //path该路径是压缩后生成的AB资源路径地址
+                        if (File.Exists(path))
+                        {
+                            //获取大小主要是为了更新我们的资源配置信息
+                            data = File.ReadAllBytes(path);
+                        }
+                        else
+                        {
+                            data = ZlibStream.CompressBuffer(File.ReadAllBytes(file.FullName));
+                            File.WriteAllBytes(path,data);
+                        }
+                        if (!vDic.ContainsKey(file.Name))
+                        {
+                            Debug.LogError(""+file.Name);
+                        }
+                        string[] item = vDic[file.Name];
+                        item[2] = data.Length.ToString();
+                        item[3] = "1";
+                        vDic[file.Name] = item;
+                    }
+                }
+            }
+        }
+    }
     /// <summary>
     /// 批量设置Assetbundle值
     /// </summary>

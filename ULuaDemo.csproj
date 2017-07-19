@@ -76,6 +76,9 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zlib">
+      <HintPath>Assets\Thirds\Ionic.Zlib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipItems.cs" />
@@ -222,6 +225,7 @@
     <Compile Include="Assets\Reporter\Test\Rotate.cs" />
     <Compile Include="Assets\Reporter\Test\TestReporter.cs" />
     <Compile Include="Assets\Scripts\LuaBand\LuaUnit.cs" />
+    <Compile Include="Assets\Scripts\LuaBand\units\ScriptAsset.cs" />
     <Compile Include="Assets\Scripts\StartGameRun.cs" />
     <Compile Include="Assets\Scripts\StartLuaUpdate.cs" />
     <Compile Include="Assets\uLua\Core\CheckType.cs" />
