@@ -11,7 +11,7 @@ using System.Linq;
 using System.Net;
 using Ionic.Zlib;
 public class Export {
-    //--------------csv----------------
+    #region [CSV转Lua表]
     static void changeLuaToUTF8(string luaPath){
         DirectoryInfo dir = new DirectoryInfo(luaPath);
         foreach (FileInfo file in dir.GetFiles("*.lua.*",SearchOption.AllDirectories)){
@@ -65,10 +65,50 @@ public class Export {
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
-
+    #endregion
     #region 资源assetbundle更新
 
+    [MenuItem("Export/资源/字体")]
+    static void UpdateFont()
+    {
+        DirectoryInfo info = new DirectoryInfo(PathUtil.fontPath);
+        Dictionary<string, string[]> dic = VersionUtil.getVerDic;
+        List<string> oldDic = new List<string>();
+        foreach (string key in dic.Keys)
+        {
+            if (key.Contains("_lang/font/"))
+            {
+                string path = PathUtil.appPath + key;
+                if (!File.Exists(path + ".ttf"))
+                {
+                    oldDic.Add("删除空节点：" + key);
+                }
+            }
+        }
+        dic = deleteDic(oldDic, dic);
+        foreach (FileInfo file in info.GetFiles("*.ttf"))
+        {
+            string atlas = PathUtil.GetAssetPath(file.FullName);
+            string[] atlass = AssetDatabase.GetDependencies(new string[] { atlas });
+            List<byte> bytes = new List<byte>();
+            for (int i = 0; i < atlass.Length; i++)
+            {
+                bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
+            }
+            string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
+            //更新配置表ab值
+            string atlasPath = PathUtil.GetFileNameWithoutExt(atlas);
+            string[] data = new string[] { atlasPath, md5, "0", "0" };
+            dic[atlasPath] = data;
+            string name = PathUtil.GetAbName(atlasPath);
+            Debug.Log(name);
+            SetAssetbundleNames(atlass, "font/" + name);
+        }
+        AssetDatabaseUtil.Clear();
+        VersionUtil.writeVersion(dic);
+        Debug.Log("更新字体值完毕");
 
+    }
 
     [MenuItem("Export/资源/图集")]
     static void UpdateAtlas()
@@ -98,7 +138,7 @@ public class Export {
             List<byte> bytes = new List<byte>();
             for (int i = 0; i < atlass.Length; i++)
             {
-                if (!atlass[i].Contains(".cs"))
+               
                     bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
             }
             string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
@@ -115,47 +155,7 @@ public class Export {
         Debug.Log("更新图集Assetbundle值完毕！");
     }
 
-    [MenuItem("Export/资源/字体")]
-    static void UpdateFont()
-    {
-        DirectoryInfo info = new DirectoryInfo(PathUtil.fontPath);
-        Dictionary<string, string[]> dic = VersionUtil.getVerDic;
-        List<string> oldDic = new List<string>();
-        foreach (string key in dic.Keys)
-        {
-            if (key.Contains("_lang/fongt/"))
-            {
-                string path = PathUtil.appPath + key;
-                if (!File.Exists(path + ".ttf"))
-                {
-                    oldDic.Add("删除空节点："+key);
-                }
-            }
-        }
-        dic = deleteDic(oldDic, dic);
-        foreach (FileInfo file in info.GetFiles("*.ttf"))
-        {
-            string atlas = PathUtil.GetAssetPath(file.FullName);
-            string[] atlass = AssetDatabase.GetDependencies(new string[] {atlas});
-            List<byte> bytes = new List<byte>();
-            for (int i = 0; i < atlass.Length; i++)
-            {
-                bytes.AddRange(File.ReadAllBytes(PathUtil.GetUtterAssetPath(atlass[i])));
-            }
-            string md5 = MD5Util.GetMD5Hash(bytes.ToArray());
-            //更新配置表ab值
-            string atlasPath = PathUtil.GetFileNameWithoutExt(atlas);
-            string[] data = new string[]{atlasPath,md5,"0","0"};
-            dic[atlasPath] = data;
-            string name = PathUtil.GetAbName(atlasPath);
-            Debug.Log(name);
-            SetAssetbundleNames(atlass,"font/"+name);
-        }
-        AssetDatabaseUtil.Clear();
-        VersionUtil.writeVersion(dic);
-        Debug.Log("更新字体值完毕");
-
-    }
+    
 
     [MenuItem("Export/资源/精灵图片")]
     static void UpdateTexture()
@@ -208,7 +208,7 @@ public class Export {
         List<string> oldDic = new List<string>();
         foreach (string key in dic.Keys)
         {
-            if (key.Contains("prefab/modules/"))
+            if (key.Contains("prefabs/modules/"))
             {
                 string path = PathUtil.appPath + key;
                 if (!File.Exists(path + ".prefab"))
@@ -248,55 +248,71 @@ public class Export {
     }
 
     [MenuItem("Export/Lua/更新AB值")]
+
     static void UpdateLua()
     {
-        if (!Directory.Exists(PathUtil.luaAssetPath))
+        if (Directory.Exists(PathUtil.luaAssetPath))
         {
             Directory.CreateDirectory(PathUtil.luaAssetPath);
+            //Directory.Delete(PathUtil.luaAssetPath,true);
         }
+
         DirectoryInfo info = new DirectoryInfo(PathUtil.luaPath);
-        Dictionary<string, string[]> cDic = VersionUtil.getVerDic;
-        List<string> hashes = new List<string>();
-        foreach (FileInfo  file in info.GetFiles("*.lua*",SearchOption.AllDirectories))
+        Dictionary<string, string[]> vDic = VersionUtil.getVerDic;
+        List<string> oldDic = new List<string>();
+        foreach (string key in vDic.Keys)
+        {
+            if (key.Contains("Lua/"))
+            {
+                string path = PathUtil.appPath + key;
+                if (!File.Exists(path + ".lua") && !File.Exists(path + ".pb") && !File.Exists(path + ".proto"))
+                {
+                    oldDic.Add("删除空节点： " + key);
+                }
+            }
+        }
+        vDic = deleteDic(oldDic, vDic);
+
+        List<string> hashs = new List<string>();
+        foreach (FileInfo file in info.GetFiles("*.lua", SearchOption.AllDirectories))
         {
             if (!file.FullName.Contains(".meta"))
             {
-               hashes.Add(AddLuaScriptAsset(file.FullName, cDic));
+                hashs.Add(AddLuaScriptAsset(file.FullName, vDic));
             }
-            
         }
-        foreach (FileInfo file in info.GetFiles("*.p*", SearchOption.AllDirectories))
+        foreach (FileInfo file in info.GetFiles("*.pb", SearchOption.AllDirectories))
         {
             if (!file.FullName.Contains(".meta"))
             {
-                hashes.Add(AddLuaScriptAsset(file.FullName, cDic));
+                hashs.Add(AddLuaScriptAsset(file.FullName, vDic));
             }
         }
-        foreach (FileInfo file in info.GetFiles("*.lua.txt", SearchOption.AllDirectories))
-        {
-            if (!file.FullName.Contains(".meta"))
-            {
-                hashes.Add(AddLuaScriptAsset(file.FullName, cDic));
-            }
-        }
+
         //清理已删除的脚本的asset文件
         info = new DirectoryInfo(PathUtil.luaAssetPath);
-        
         foreach (FileInfo file in info.GetFiles("*.asset", SearchOption.AllDirectories))
         {
-            if (!hashes.Contains(file.Name))
+            if (!hashs.Contains(file.Name))
             {
-                string old1Path = string.Format("Assets/prefabs/lua/{0}.asset", file.Name );
-                AssetDatabase.DeleteAsset(old1Path);
-                Debug.Log("delete asset "+file.Name );
+                string p = string.Format("Assets/prefabs/lua/{0}", file.Name);
+                AssetDatabase.DeleteAsset(p);
+                Debug.Log("delete asset  " + file.Name);
             }
         }
-        VersionUtil.writeVersion(cDic);
+
+        VersionUtil.writeVersion(vDic);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        
     }
-    #endregion
+    private static Dictionary<string, string[]> deleteDic(List<string> keys, Dictionary<string, string[]> dic)
+    {
+        for (int i = 0; i < keys.Count; i++)
+        {
+            dic.Remove(keys[i]);
+        }
+        return dic;
+    }
 
     private static string AddLuaScriptAsset(string filePath, Dictionary<string, string[]> dic)
     {
@@ -307,11 +323,11 @@ public class Export {
         //5.更新配置信息键值
         string path = PathUtil.GetFileNameWithoutExt(PathUtil.GetAssetPath(filePath)) ;
         byte[] data = File.ReadAllBytes(filePath);
-        byte[] meta = File.ReadAllBytes(filePath+".meta");
+        //byte[] meta = File.ReadAllBytes(filePath+".meta");
         List<byte> datas = new List<byte>();
         datas.AddRange(data);
-        datas.AddRange(meta);
-        string hash = MD5Util.GetMD5Hash(data.ToArray());
+       // datas.AddRange(meta);
+        string hash = MD5Util.GetMD5Hash(datas.ToArray());
         if (dic.ContainsKey(path))
         {
             string[] news = dic[path];
@@ -322,7 +338,7 @@ public class Export {
                 if (File.Exists(old1Path))
                 {
 
-                    return hash;
+                    return hash+".asset";
                 }
 
             }
@@ -351,8 +367,67 @@ public class Export {
         };
         dic[path] = item;
         Debug.Log(path);
-        return path;
+        return hash + ".asset";
     }
+    /// <summary>
+    /// 批量设置Assetbundle值
+    /// </summary>
+    /// <param name="paths"></param>
+    /// <param name="name"></param>
+    private static void SetAssetbundleNames(string[] paths, string name)
+    {
+        foreach (string path in paths)
+        {
+            if (!path.Contains(".cs"))
+            {
+                AssetDatabaseUtil.SetName(path, name);
+            }
+        }
+    }
+    #endregion
+
+    #region 打包压缩
+
+    [MenuItem("Export/更新配置文件")]
+    private static void abInit()
+    {
+        UpdateFont();
+        UpdateAtlas();
+        UpdatePrefabs();
+        UpdateTexture();
+        UpdateLua();
+    }
+    [MenuItem("Export/Build/Window")]
+    private static void WindowToAB()
+    {
+        abInit();
+        BuildABs("Window", BuildTarget.StandaloneWindows);
+        UpdateABsSize("Window");
+        ClearAbs("Window");
+        toWindowAB();
+    }
+    [MenuItem("Export/清理/Window")]
+    public static void ClearWindow()
+    {
+        ClearAbs("Window");
+    }
+    [MenuItem("Export/Build/Android")]
+    private static void AndroidToAB()
+    {
+        abInit();
+        BuildABs("Android",BuildTarget.Android);
+        UpdateABsSize("Android");
+        ClearAbs("Android");
+    }
+  
+
+    [MenuItem("Export/整包更新/Android")]
+    private static void WindowToAb()
+    {
+        abInit();
+        AndroidToAB();
+    }
+    #endregion
     /// <summary>
     /// 压缩导出所有ab文件
     /// </summary>
@@ -364,7 +439,12 @@ public class Export {
         if (!Directory.Exists(platformPath))
         {
             Directory.CreateDirectory(platformPath);
-            Dictionary<string, string[]> vDic = VersionUtil.getHashDic;
+        }
+        Directory.Delete(platformPath, true);
+        Directory.CreateDirectory(platformPath);
+
+        Dictionary<string, string[]> vDic = VersionUtil.getHashDic;
+          
             //获取ab文件路径
             DirectoryInfo info = new DirectoryInfo(PathUtil.abs+"/"+platform);
             //1.路径下所有文件夹遍历获取，没有就创建platformab文件压缩路径
@@ -373,6 +453,7 @@ public class Export {
                 //2.遍历文件夹下所有AB文件
                 foreach (FileInfo file in directoryInfo.GetFiles())
                 {
+                 
                     //3获取AB文件
                     if (file.Extension != ".meta" && file.Extension != ".manifest")
                     {
@@ -383,15 +464,18 @@ public class Export {
                         {
                             //获取大小主要是为了更新我们的资源配置信息
                             data = File.ReadAllBytes(path);
+                            Debug.Log(data.Length + "386-------");
                         }
                         else
                         {
+                            //压缩文件 AB文件并生成到相应路径
                             data = ZlibStream.CompressBuffer(File.ReadAllBytes(file.FullName));
-                            File.WriteAllBytes(path,data);
+                            File.WriteAllBytes(path, data);
+                            Debug.Log(data.Length + "393-------");
                         }
                         if (!vDic.ContainsKey(file.Name))
                         {
-                            Debug.LogError(""+file.Name);
+                            Debug.LogError("" + file.Name + "呦吼使这里把");
                         }
                         string[] item = vDic[file.Name];
                         item[2] = data.Length.ToString();
@@ -400,93 +484,158 @@ public class Export {
                     }
                 }
             }
-        }
+            VersionUtil.writeVersion(vDic);
+            AssetDatabase.Refresh();
     }
-    /// <summary>
-    /// 批量设置Assetbundle值
-    /// </summary>
-    /// <param name="paths"></param>
-    /// <param name="name"></param>
-    private static void SetAssetbundleNames(string[] paths, string name)
-	{
-		foreach (string path in paths)
-		{
-			if (!path.Contains(".cs"))
-			{
-				AssetDatabaseUtil.SetName(path, name);
-			}
-		}
-	}
-    [MenuItem("Export/Test")]
+      [MenuItem("Export/Test")]
     private static void test(){
-        BuildABs("ABs/Android",BuildTarget.Android);
+        //BuildABs("ABs/Android",BuildTarget.Android);
+        //compressAndExportAllAssetBundle("Android");
+        toWindowAB();
         //UpdateABsSize("ABs/Android");
         //ClearAbs("ABs/Android");
     }
+
+          /// <summary>
+          /// 跟新资源名字
+          /// 这里主要是用来处理资源名
+          /// 当前生成的ab资源名字不是md5这里进行纠正
+          /// 除了lua文件
+          /// </summary>
+          static void UpdateAssetBundleNames(string outPath)
+          {
+              Dictionary<string, string[]> vKeyDic = VersionUtil.getLowerVerDic;
+
+              string path = PathUtil.abs + outPath;
+              DirectoryInfo infos = new DirectoryInfo(path);
+              path = path.Replace("/", "\\");
+              string extension = ".manifest";
+              foreach (FileInfo info in infos.GetFiles("*", SearchOption.AllDirectories))
+              {
+                  if (path != info.DirectoryName && string.IsNullOrEmpty(info.Extension))
+                  {
+                      string name = info.Name;
+                      if (name.Contains("@") && name != null)
+                      {
+                          name = PathUtil.RestoreAbName(name);
+                          if (vKeyDic.ContainsKey(name))
+                          {
+                              string abPath = info.DirectoryName + "\\" + vKeyDic[name][1];
+                              if (!File.Exists(abPath))
+                              {
+                                  FileUtil.CopyFileOrDirectory(info.FullName, abPath);
+                                  File.Delete(info.FullName);
+                                  FileUtil.CopyFileOrDirectory(info.FullName + extension, abPath + extension);
+                                  File.Delete(info.FullName + extension);
+                              }
+                              else
+                              {
+                                  File.Delete(info.FullName);
+                                  File.Delete(info.FullName + extension);
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+
     [MenuItem("Export/Clear")]
     private static void Clear()
     {
-        //BuildABs("ABs/Android",BuildTarget.Android);
+
+        BuildABs("ABs/Android",BuildTarget.Android);
         //UpdateABsSize("ABs/Android");
         ClearAbs("ABs/Android");
     }
+    /// <summary>
+    /// window版本专业AB包
+    /// </summary>
+    static void toWindowAB()
+    {
+        string platform = "Window";
+        //1.判断该目录下是否含有文件路径，没有就创建
+        string platformPath = Application.dataPath.Replace("Assets", string.Format("Release/{0}/datas/", platform));
+        if (!Directory.Exists(platformPath))
+        {
+            Directory.CreateDirectory(platformPath);
+        }
+        Directory.Delete(platformPath, true);
+        Directory.CreateDirectory(platformPath);
+
+        Dictionary<string, string[]> vDic = VersionUtil.getHashDic;
+        //获取ab文件路径
+        DirectoryInfo info = new DirectoryInfo(PathUtil.abs + "/" + platform);
+        foreach (DirectoryInfo directoryInfo in info.GetDirectories("*.*", SearchOption.AllDirectories))
+        {
+            //2.遍历文件夹下所有AB文件
+            foreach (FileInfo file in directoryInfo.GetFiles())
+            {
+
+                //3获取AB文件
+                if (file.Extension != ".meta" && file.Extension != ".manifest")
+                {
+                   File.Copy(file.FullName,platformPath+file.Name);
+                }
+            }
+        }
+        File.Copy(PathUtil.verPath,platformPath+"windowABs");
+    }
+    /// <summary>
+    /// windows发布 用于游戏开发起见测试
+    /// </summary>
+    [MenuItem("Export/发布/window")]
+    static void releaseWindow()
+    {
+        PlayerSettings.defaultScreenWidth = 1136;
+        PlayerSettings.defaultScreenHeight = 640;
+        PlayerSettings.defaultIsFullScreen = false;
+        PlayerSettings.defaultIsNativeResolution = false;
+        PlayerSettings.runInBackground = false;
+        PlayerSettings.resizableWindow = false;
+        PlayerSettings.visibleInBackground = false;
+        PlayerSettings.usePlayerLog = false;
+        Screen.fullScreen = false;
+        PlayerSettings.displayResolutionDialog = ResolutionDialogSetting.Disabled;
+        BuildPipeline.BuildPlayer(getLevels(), Application.dataPath.Replace("Assets", "Window/start.exe"),
+            BuildTarget.StandaloneWindows, BuildOptions.ShowBuiltPlayer);
+    }
+
+    private static string[] getLevels()
+    {
+        List<string> levels = new List<string>();
+        EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
+        foreach (EditorBuildSettingsScene scene in scenes)
+        {
+            if (scene.enabled)
+            {
+                levels.Add(scene.path);
+            }
+        }
+        return levels.ToArray();
+    }
+
     public static void BuildABs(string outPath, BuildTarget target)
 	{
-		string path = Application.dataPath + "/"+outPath;
+		string path = PathUtil.abs + outPath;
         Debug.Log(path);
         if (!Directory.Exists(path)){
             Directory.CreateDirectory(path);
         }
         BuildAssetBundleOptions options = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.UncompressedAssetBundle;
-		BuildPipeline.BuildAssetBundles("Assets/" + outPath, options, target);
+		BuildPipeline.BuildAssetBundles("Assets/ABs/" + outPath, options, target);
 		AssetDatabase.Refresh();
-	    UpdateABsSize(outPath);
+	    UpdateAssetBundleNames(outPath);
+        UpdateABsSize(outPath);
+	   
 
-	}
+    }
     /// <summary>
     /// 更新AB文件大小--配置表
     /// </summary>
     /// <param name="outPath"></param>
     private static void UpdateABsSize(string outPath)
     {
-        //string path = Application.dataPath + "/" + outPath;
-        ////1.获取该路径下的所有的文件名 ----文件的md5值
-        ////2.获取配置表md5 md5-配置信息 值
-        //List<string> abNames = new List<string>();
-        //Dictionary<string, string[]> hashList = VersionUtil.getVerDic;
-        ////Debug.Log(hashList["1efaf6265e71dfc58d892f6b2c0c32c2"]);
-        //DirectoryInfo info = new DirectoryInfo(path);
-        //path = path.Replace("/","\\");
-        //foreach (FileInfo file in info.GetFiles("*",SearchOption.AllDirectories))
-        //{
-        //    if (path!=file.DirectoryName&& string.IsNullOrEmpty(file.Extension))
-        //    {
-        //        abNames.Add(file.FullName);
-        //    }
-
-        //}
-        //Dictionary<string, string[]> hashSize = new Dictionary<string, string[]>();
-        //foreach (string hashListKey in hashList.Keys)
-        //{
-        //    Debug.Log(hashListKey);
-        //}
-        //foreach (string abPath in abNames)
-        //{
-        //    FileInfo file = new FileInfo(abPath);
-        //    string name = file.Name;
-        //    Debug.Log(name);
-        //    if (hashList.ContainsKey(name))
-        //    {
-        //        Debug.Log("有");
-        //        string[] cfg =hashList[name];
-        //        cfg[2] = File.ReadAllBytes(abPath).Length.ToString();
-        //        hashSize.Add(cfg[0],cfg);
-        //    }
-
-        //}
-        //VersionUtil.writeVersion(hashSize);
-        //AssetDatabase.Refresh();
-        string path = Application.dataPath + "/" + outPath;
+        string path = PathUtil.abs + outPath;
         // 1 获取该路径下的所有的文件名 ---  文件的MD5
         // 2 获取配置表  md5 - 配置信息 值
         List<string> abNames = new List<string>();
@@ -534,7 +683,6 @@ public class Export {
         }
         VersionUtil.writeVersion(haseSize);
         AssetDatabase.Refresh();
-        Debug.Log("更新完毕");
     }
 
     static void ClearAbs(string outPath)
@@ -587,12 +735,4 @@ public class Export {
         Debug.Log("清理废弃AB文件:" + count);
         AssetDatabase.Refresh();
     }
-    private static Dictionary<string, string[]> deleteDic(List<string> keys, Dictionary<string, string[]> dic)
-    {
-        for (int i = 0; i < keys.Count; i++)
-        {
-            dic.Remove(keys[i]);
-        }
-        return dic;
     }
-}

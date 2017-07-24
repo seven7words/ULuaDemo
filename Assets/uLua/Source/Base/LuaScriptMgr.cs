@@ -692,6 +692,17 @@ public class LuaScriptMgr
         fileList.Add(name);
 
 #if !LUA_ZIP
+        if (Application.isMobilePlatform)
+        {
+           
+        }else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+
+        }
+        else
+        {
+            
+        }
         string path = Util.LuaPath(name);
         Util.Log("####"+path);
         if (File.Exists(path))

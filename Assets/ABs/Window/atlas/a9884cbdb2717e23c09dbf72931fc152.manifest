@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 2632276025
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cf417eb3eccf448f79fa22846eb8e85f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c34661ec9c11acc5965c54963a8fee04
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/atlas/General_icon_Atlas.prefab
+- Assets/Prefabs/atlas/General_icon_met.mat
+- Assets/Prefabs/atlas/General_icon_png.png
+Dependencies:
+- C:/Users/woopqww111/Documents/ULuaDemo/Assets/ABs/Window/atlas/prefabs@atlas@ui_battle_atlas

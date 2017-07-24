@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1766995797
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9dca6d812c2d3a65d275ad10a31a879d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4cd0a5558493b0679e071c141fc729a3
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Textures/pic_login.png
+Dependencies: []

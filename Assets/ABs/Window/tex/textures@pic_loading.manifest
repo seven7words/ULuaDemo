@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3564202518
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d613661b54ee7c5e3582eb52af64e3d9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4cd0a5558493b0679e071c141fc729a3
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/pic_loading.png
+Dependencies: []

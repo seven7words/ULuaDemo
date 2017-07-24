@@ -1,0 +1,300 @@
+ManifestFileVersion: 0
+CRC: 1531693032
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: tex/textures@pic_loading
+      Dependencies: {}
+    Info_1:
+      Name: atlas/prefabs@atlas@equip_icon
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+    Info_2:
+      Name: atlas/prefabs@atlas@comm_atlas
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+    Info_3:
+      Name: atlas/prefabs@atlas@prop_icon
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+    Info_4:
+      Name: atlas/prefabs@atlas@tttt
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+    Info_5:
+      Name: atlas/prefabs@atlas@ui_battle_atlas
+      Dependencies: {}
+    Info_6:
+      Name: atlas/prefabs@atlas@general_icon_atlas
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+    Info_7:
+      Name: atlas/prefabs@atlas@main_atlas
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+    Info_8:
+      Name: atlas/prefabs@atlas@publicui
+      Dependencies: {}
+    Info_9:
+      Name: modules/prefabs@modules@main_view
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@comm_atlas
+        Dependency_1: atlas/prefabs@atlas@ui_battle_atlas
+        Dependency_2: atlas/prefabs@atlas@general_icon_atlas
+        Dependency_3: atlas/prefabs@atlas@main_atlas
+    Info_10:
+      Name: modules/prefabs@modules@login_view
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+        Dependency_1: tex/textures@pic_login
+    Info_11:
+      Name: modules/prefabs@modules@root
+      Dependencies:
+        Dependency_0: atlas/prefabs@atlas@ui_battle_atlas
+        Dependency_1: tex/textures@pic_bg
+    Info_12:
+      Name: tex/textures@backdrop@bg
+      Dependencies: {}
+    Info_13:
+      Name: tex/textures@pic_login
+      Dependencies: {}
+    Info_14:
+      Name: tex/textures@pic_bg
+      Dependencies: {}
+    Info_15:
+      Name: lua/cb63dd602f8efe780917a94e9217fe9d
+      Dependencies: {}
+    Info_16:
+      Name: lua/bd2965778af3cbe3bb9f3a838319f574
+      Dependencies: {}
+    Info_17:
+      Name: lua/3ae7c60a1442816ea0296439214debd9
+      Dependencies: {}
+    Info_18:
+      Name: lua/3e2b83f90983c7298c6e228145daae78
+      Dependencies: {}
+    Info_19:
+      Name: lua/be1d722b289665f05d7d3e06f4bec3a2
+      Dependencies: {}
+    Info_20:
+      Name: lua/834d6df90a840b2a71e3973ead15c30a
+      Dependencies: {}
+    Info_21:
+      Name: lua/ded8c92f341332373c397b78a19cae36
+      Dependencies: {}
+    Info_22:
+      Name: lua/ae4b8668d0b109c837130bfdaf74920d
+      Dependencies: {}
+    Info_23:
+      Name: lua/e3ea7195d919df98f6b6a2b166257411
+      Dependencies: {}
+    Info_24:
+      Name: lua/3f9bf1fb8ac8d5b40b33e519125c4c34
+      Dependencies: {}
+    Info_25:
+      Name: lua/654ec89e70743d347460a527438b5e63
+      Dependencies: {}
+    Info_26:
+      Name: lua/714e3ef097c3d08038d796930c25647b
+      Dependencies: {}
+    Info_27:
+      Name: lua/d9cfca04c5c84a974b6e17a355d410c1
+      Dependencies: {}
+    Info_28:
+      Name: lua/fdc0f01f3db1e6fb373005eba3928bac
+      Dependencies: {}
+    Info_29:
+      Name: lua/c6eda706b92374ee108cd4e600e130ca
+      Dependencies: {}
+    Info_30:
+      Name: lua/b0e3fb6ddae7da722eddd190be8d88ec
+      Dependencies: {}
+    Info_31:
+      Name: lua/726d97dfbeacc98723fdbd029f354cf7
+      Dependencies: {}
+    Info_32:
+      Name: lua/e2c7402f939757a7937835bd08a89fd8
+      Dependencies: {}
+    Info_33:
+      Name: lua/7ab98c24235b90c528ce4f21841baecd
+      Dependencies: {}
+    Info_34:
+      Name: lua/76926385d50a5b8a780c057336f60d51
+      Dependencies: {}
+    Info_35:
+      Name: lua/36676c1998c7b34503274a7d3e2d3eaa
+      Dependencies: {}
+    Info_36:
+      Name: lua/5e65dcbe25fb465b9cb08a796eb7e291
+      Dependencies: {}
+    Info_37:
+      Name: lua/82a02f26496c5047b38563d0806bac36
+      Dependencies: {}
+    Info_38:
+      Name: lua/ba99f6f05277b0b29d29a2e18c83da72
+      Dependencies: {}
+    Info_39:
+      Name: lua/e4a626354f9622bf07e4e9d1559048a9
+      Dependencies: {}
+    Info_40:
+      Name: lua/b338e22d4f43bebc4095790e116ff947
+      Dependencies: {}
+    Info_41:
+      Name: lua/6ba6a7dd9e0f1814f6be5e03811d1cc7
+      Dependencies: {}
+    Info_42:
+      Name: lua/c5b7517c4d61ad9fc7aca5ad11b528e2
+      Dependencies: {}
+    Info_43:
+      Name: lua/be8b440f623340c9a0ca9791799db91b
+      Dependencies: {}
+    Info_44:
+      Name: lua/a9aedaaf76325bb59fc5df37c6310eaf
+      Dependencies: {}
+    Info_45:
+      Name: lua/0d12a5d5b7ddb319de5174afc4b9d54c
+      Dependencies: {}
+    Info_46:
+      Name: lua/e2233baaecbd82dd10f8b7d97d7a852f
+      Dependencies: {}
+    Info_47:
+      Name: lua/b7df662f27089fc41c7fa95b7584cc66
+      Dependencies: {}
+    Info_48:
+      Name: lua/468f96a01346d87d973270d14c6889e5
+      Dependencies: {}
+    Info_49:
+      Name: lua/0b581f6f544ab106c60ffa3fec1fc4eb
+      Dependencies: {}
+    Info_50:
+      Name: lua/0b6e5fc881545583b578b83f54e45ada
+      Dependencies: {}
+    Info_51:
+      Name: lua/b3410bac76e460e5edcbec0ce99c0d79
+      Dependencies: {}
+    Info_52:
+      Name: lua/6b71ecda1c09d624580e9b02839a8607
+      Dependencies: {}
+    Info_53:
+      Name: lua/79c65f7a66065f27b2db7940cad6dce1
+      Dependencies: {}
+    Info_54:
+      Name: lua/437d05e54070f10e55cdb50c9f6a5b38
+      Dependencies: {}
+    Info_55:
+      Name: lua/9e56a362fbc85e6b05ee8c62c15946e6
+      Dependencies: {}
+    Info_56:
+      Name: lua/51cdb82ba34bd8923027346841f4a3da
+      Dependencies: {}
+    Info_57:
+      Name: lua/6bfb0c6ad4c799c1eb8adbb5d060a63b
+      Dependencies: {}
+    Info_58:
+      Name: lua/57292ef659aa556bd272f8e55040430b
+      Dependencies: {}
+    Info_59:
+      Name: lua/4a706f542803ec4a361f5f5f48d258c9
+      Dependencies: {}
+    Info_60:
+      Name: lua/19213783b06140b31e4e927ff643e937
+      Dependencies: {}
+    Info_61:
+      Name: lua/1895ee0c92063e29f5c6d84ac690c405
+      Dependencies: {}
+    Info_62:
+      Name: lua/b3f8ddd29dc75c3293cf01ae493b5fd1
+      Dependencies: {}
+    Info_63:
+      Name: lua/64a069acadb37a7175d392f97592732b
+      Dependencies: {}
+    Info_64:
+      Name: lua/a9fdc713cd0e7277898e90c747f2a647
+      Dependencies: {}
+    Info_65:
+      Name: lua/265063f03ff165fe6aee6bb5f7762fe0
+      Dependencies: {}
+    Info_66:
+      Name: lua/bdd67e855b31a53c7cd6ee87208bf37a
+      Dependencies: {}
+    Info_67:
+      Name: lua/62a6e04a5983bb8c93d46327a572b089
+      Dependencies: {}
+    Info_68:
+      Name: lua/256f2b64a0f6647a152124434dfa82de
+      Dependencies: {}
+    Info_69:
+      Name: lua/e5cc349578e3a2ffa7a8cb3ddd17e0e6
+      Dependencies: {}
+    Info_70:
+      Name: lua/7be23cdb16abc1d73bca57a59b19ba79
+      Dependencies: {}
+    Info_71:
+      Name: lua/d591b8daa26c4fd0e11253be1f5e5145
+      Dependencies: {}
+    Info_72:
+      Name: lua/e2f8725922a0bdce965b7d038db4fe3d
+      Dependencies: {}
+    Info_73:
+      Name: lua/8ea3ffae0684e370de92da24a462f70c
+      Dependencies: {}
+    Info_74:
+      Name: lua/3b9c0aac07f9d52bf4e885350284853a
+      Dependencies: {}
+    Info_75:
+      Name: lua/72c862862b8ed8340943eff5f300a0cc
+      Dependencies: {}
+    Info_76:
+      Name: lua/c3cc7a151c0c86f7231c4982e7f84b75
+      Dependencies: {}
+    Info_77:
+      Name: lua/bb7814badc09b595c23e6c105f6eaa3e
+      Dependencies: {}
+    Info_78:
+      Name: lua/fd1a0a7fdcd511da542ab30f6fd6654a
+      Dependencies: {}
+    Info_79:
+      Name: lua/abf2a2fd08fffe2fdde4d42a890020ed
+      Dependencies: {}
+    Info_80:
+      Name: lua/358d649a6aa53b508e5252babdf38a2b
+      Dependencies: {}
+    Info_81:
+      Name: lua/17ca624b136d610deaf0a3183b60757b
+      Dependencies: {}
+    Info_82:
+      Name: lua/86a0d01fcff709b0978018b173217ddb
+      Dependencies: {}
+    Info_83:
+      Name: lua/e8a3ee6cd95b22f3a866a580dbd12080
+      Dependencies: {}
+    Info_84:
+      Name: lua/71fef48d5f803e9a5374f2fc397bd147
+      Dependencies: {}
+    Info_85:
+      Name: lua/a0625e58179311caad3502697279c3d4
+      Dependencies: {}
+    Info_86:
+      Name: lua/c427850fa3cfcc3e61dc3ce0d7cc50bf
+      Dependencies: {}
+    Info_87:
+      Name: lua/d9847888295257c3f25fc3196489b6e3
+      Dependencies: {}
+    Info_88:
+      Name: lua/5cfa7b54193a6f8c545554ec6333ac2a
+      Dependencies: {}
+    Info_89:
+      Name: lua/99ca7d1090f9ef2397c9f44b9343f168
+      Dependencies: {}
+    Info_90:
+      Name: lua/6b9ddc4e3a0aac625479bbeecb30e54b
+      Dependencies: {}
+    Info_91:
+      Name: lua/a0923e41f164a968de421518ca79724a
+      Dependencies: {}
+    Info_92:
+      Name: lua/6b3888433620d7bace8d2cd80b0cefe9
+      Dependencies: {}
+    Info_93:
+      Name: lua/a05f576f108452203657a590a9660154
+      Dependencies: {}
