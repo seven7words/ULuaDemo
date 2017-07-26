@@ -7,9 +7,9 @@ public class StartGameRun : MonoBehaviour
     public TextAsset luaUpdate;
     public GameObject obj;
     LuaScriptMgr mgr;
-	void Start() 
-    {
-        mgr = new LuaScriptMgr();
+	void Start()
+	{
+	    mgr = LuaScriptMgr.Instance;
         if (luaUpdate != null)
         {
             mgr.DoStringFile(luaUpdate.name, luaUpdate.text);

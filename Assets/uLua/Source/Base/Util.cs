@@ -6,7 +6,7 @@ using System.Reflection;
 using System.IO;
 using LuaInterface;
 using System.Collections.Generic;
-
+using System.Runtime.Remoting.Messaging;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -30,6 +30,35 @@ public class Util
         return path + "/lua/" + name + ".lua";
     }
 
+    private static string dataPath;
+
+    public static string DataPath
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(dataPath))
+            {
+                if (Application.isMobilePlatform)
+                {
+                    dataPath = Application.persistentDataPath + "/";
+
+                }
+                else if (Application.platform == RuntimePlatform.WindowsPlayer)
+                {
+                    dataPath = Application.dataPath.Replace("/Window/start_Data", "/Release/Window/datas/");
+                }
+                else if (Application.isEditor)
+                {
+                    dataPath = Application.dataPath + "/Lua/";
+                }
+
+
+            }
+            
+            return dataPath;
+            
+        }
+    }
     public static void Log(string str)
     {
         Debug.Log(str);

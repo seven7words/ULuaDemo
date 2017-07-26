@@ -226,6 +226,8 @@
     <Compile Include="Assets\Reporter\Test\TestReporter.cs" />
     <Compile Include="Assets\Scripts\LuaBand\LuaUnit.cs" />
     <Compile Include="Assets\Scripts\LuaBand\units\ScriptAsset.cs" />
+    <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\StartGameRun.cs" />
     <Compile Include="Assets\Scripts\StartLuaUpdate.cs" />
     <Compile Include="Assets\uLua\Core\CheckType.cs" />

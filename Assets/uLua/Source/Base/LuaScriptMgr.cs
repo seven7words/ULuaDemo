@@ -697,12 +697,14 @@ public class LuaScriptMgr
            
         }else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-
+            if (name.Contains(".lua"))
+            {
+                name.Replace(".lua", "");
+            }
+            name = "Lua/" + name.Replace(".", "/");
+            return ResourceManager.getLuaAsset(name);
         }
-        else
-        {
-            
-        }
+     
         string path = Util.LuaPath(name);
         Util.Log("####"+path);
         if (File.Exists(path))
